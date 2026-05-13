@@ -1,0 +1,15 @@
+{
+  "design": "sequential_chain",
+  "cases": 15,
+  "pass_rate": 0.9333333333333333,
+  "route_accuracy": 1.0,
+  "tool_recall": 1.0,
+  "skill_recall": 1.0,
+  "citation_recall": 1.0,
+  "keyword_recall": 1.0,
+  "forbidden_absence": 1.0,
+  "abstention_accuracy": 0.9333333333333333,
+  "unsupported_claim_rate": 0.0,
+  "avg_tool_calls": 1.5333333333333334,
+  "avg_cost_proxy": 2.0523333333333333
+}

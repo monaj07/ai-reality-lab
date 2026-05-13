@@ -1,0 +1,5 @@
+design,cases,pass_rate,route_accuracy,tool_recall,skill_recall,citation_recall,keyword_recall,forbidden_absence,abstention_accuracy,unsupported_claim_rate,avg_tool_calls,avg_cost_proxy
+single_agent,15,0.0,0.8888888888888888,0.1,0.7933333333333333,0.4888888888888889,0.58,0.8666666666666667,0.8666666666666667,0.6666666666666666,1,1.35
+sequential_chain,15,0.9333333333333333,1.0,1.0,1.0,1.0,1.0,1.0,0.9333333333333333,0.0,1.5333333333333334,2.0523333333333333
+triage_handoff,15,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,1.5333333333333334,2.584
+committee_referee,15,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,2.2666666666666666,4.208

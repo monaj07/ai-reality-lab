@@ -1,0 +1,185 @@
+{
+  "source_id": "f1_2026_calendar_current_formula1",
+  "source_name": "Formula1.com 2026 season schedule snapshot",
+  "source_url": "https://www.formula1.com/en/racing/2026",
+  "retrieved_at": "2026-05-13",
+  "note": "Current Formula1.com schedule snapshot shows 22 race rounds, with Canada listed as Round 5 after Miami. The original FIA calendar source card still notes an announced 24-race calendar including Bahrain and Saudi Arabia.",
+  "rounds": [
+    {
+      "round": 1,
+      "country": "Australia",
+      "venue": "Melbourne",
+      "date_range": "2026-03-06 to 2026-03-08",
+      "status": "completed",
+      "winner": "George Russell"
+    },
+    {
+      "round": 2,
+      "country": "China",
+      "venue": "Shanghai",
+      "date_range": "2026-03-13 to 2026-03-15",
+      "status": "completed",
+      "winner": "Kimi Antonelli"
+    },
+    {
+      "round": 3,
+      "country": "Japan",
+      "venue": "Suzuka",
+      "date_range": "2026-03-27 to 2026-03-29",
+      "status": "completed",
+      "winner": "Kimi Antonelli"
+    },
+    {
+      "round": 4,
+      "country": "United States",
+      "venue": "Miami",
+      "date_range": "2026-05-01 to 2026-05-03",
+      "status": "completed",
+      "winner": "Kimi Antonelli"
+    },
+    {
+      "round": 5,
+      "country": "Canada",
+      "venue": "Montreal",
+      "date_range": "2026-05-22 to 2026-05-24",
+      "status": "next",
+      "winner": null
+    },
+    {
+      "round": 6,
+      "country": "Monaco",
+      "venue": "Monaco",
+      "date_range": "2026-06-05 to 2026-06-07",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 7,
+      "country": "Spain",
+      "venue": "Barcelona-Catalunya",
+      "date_range": "2026-06-12 to 2026-06-14",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 8,
+      "country": "Austria",
+      "venue": "Spielberg",
+      "date_range": "2026-06-26 to 2026-06-28",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 9,
+      "country": "Great Britain",
+      "venue": "Silverstone",
+      "date_range": "2026-07-03 to 2026-07-05",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 10,
+      "country": "Belgium",
+      "venue": "Spa-Francorchamps",
+      "date_range": "2026-07-17 to 2026-07-19",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 11,
+      "country": "Hungary",
+      "venue": "Budapest",
+      "date_range": "2026-07-24 to 2026-07-26",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 12,
+      "country": "Netherlands",
+      "venue": "Zandvoort",
+      "date_range": "2026-08-21 to 2026-08-23",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 13,
+      "country": "Italy",
+      "venue": "Monza",
+      "date_range": "2026-09-04 to 2026-09-06",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 14,
+      "country": "Spain",
+      "venue": "Madrid",
+      "date_range": "2026-09-11 to 2026-09-13",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 15,
+      "country": "Azerbaijan",
+      "venue": "Baku",
+      "date_range": "2026-09-24 to 2026-09-26",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 16,
+      "country": "Singapore",
+      "venue": "Singapore",
+      "date_range": "2026-10-09 to 2026-10-11",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 17,
+      "country": "United States",
+      "venue": "Austin",
+      "date_range": "2026-10-23 to 2026-10-25",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 18,
+      "country": "Mexico",
+      "venue": "Mexico City",
+      "date_range": "2026-10-30 to 2026-11-01",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 19,
+      "country": "Brazil",
+      "venue": "São Paulo",
+      "date_range": "2026-11-06 to 2026-11-08",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 20,
+      "country": "United States",
+      "venue": "Las Vegas",
+      "date_range": "2026-11-19 to 2026-11-21",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 21,
+      "country": "Qatar",
+      "venue": "Lusail",
+      "date_range": "2026-11-27 to 2026-11-29",
+      "status": "upcoming",
+      "winner": null
+    },
+    {
+      "round": 22,
+      "country": "United Arab Emirates",
+      "venue": "Yas Marina",
+      "date_range": "2026-12-04 to 2026-12-06",
+      "status": "upcoming",
+      "winner": null
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "source_id": "fide_may_2026_top_players",
+  "source_name": "FIDE Top 100 Players May 2026",
+  "source_url": "https://ratings.fide.com/a_top.php",
+  "retrieved_at": "2026-05-13",
+  "rating_list_month": "May 2026",
+  "time_control": "classical",
+  "players": [
+    {
+      "rank": 1,
+      "name": "Carlsen, Magnus",
+      "display_name": "Magnus Carlsen",
+      "federation": "NOR",
+      "rating": 2840,
+      "birth_year": 1990
+    },
+    {
+      "rank": 2,
+      "name": "Nakamura, Hikaru",
+      "display_name": "Hikaru Nakamura",
+      "federation": "USA",
+      "rating": 2792,
+      "birth_year": 1987
+    },
+    {
+      "rank": 3,
+      "name": "Caruana, Fabiano",
+      "display_name": "Fabiano Caruana",
+      "federation": "USA",
+      "rating": 2788,
+      "birth_year": 1992
+    },
+    {
+      "rank": 4,
+      "name": "Abdusattorov, Nodirbek",
+      "display_name": "Nodirbek Abdusattorov",
+      "federation": "UZB",
+      "rating": 2780,
+      "birth_year": 2004
+    },
+    {
+      "rank": 5,
+      "name": "Sindarov, Javokhir",
+      "display_name": "Javokhir Sindarov",
+      "federation": "UZB",
+      "rating": 2776,
+      "birth_year": 2005
+    },
+    {
+      "rank": 6,
+      "name": "Giri, Anish",
+      "display_name": "Anish Giri",
+      "federation": "NED",
+      "rating": 2767,
+      "birth_year": 1994
+    },
+    {
+      "rank": 7,
+      "name": "Keymer, Vincent",
+      "display_name": "Vincent Keymer",
+      "federation": "GER",
+      "rating": 2759,
+      "birth_year": 2004
+    },
+    {
+      "rank": 8,
+      "name": "Firouzja, Alireza",
+      "display_name": "Alireza Firouzja",
+      "federation": "FRA",
+      "rating": 2759,
+      "birth_year": 2003
+    },
+    {
+      "rank": 9,
+      "name": "So, Wesley",
+      "display_name": "Wesley So",
+      "federation": "USA",
+      "rating": 2754,
+      "birth_year": 1993
+    },
+    {
+      "rank": 10,
+      "name": "Wei, Yi",
+      "display_name": "Wei Yi",
+      "federation": "CHN",
+      "rating": 2753,
+      "birth_year": 1999
+    },
+    {
+      "rank": 19,
+      "name": "Gukesh D",
+      "display_name": "Gukesh D",
+      "federation": "IND",
+      "rating": 2732,
+      "birth_year": 2006
+    }
+  ]
+}

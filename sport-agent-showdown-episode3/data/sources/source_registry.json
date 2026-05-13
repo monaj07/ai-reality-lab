@@ -1,0 +1,78 @@
+{
+  "retrieved_at": "2026-05-13",
+  "sources": [
+    {
+      "source_id": "fifa_wc26_final_groups",
+      "sport": "football",
+      "title": "FIFA World Cup 2026 final groups snapshot",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/final-draw-results",
+      "type": "source_card"
+    },
+    {
+      "source_id": "f1_2026_calendar_current_formula1",
+      "sport": "f1",
+      "title": "Formula1.com 2026 schedule snapshot",
+      "url": "https://www.formula1.com/en/racing/2026",
+      "type": "source_card"
+    },
+    {
+      "source_id": "fia_2026_calendar_original",
+      "sport": "f1",
+      "title": "FIA original 2026 calendar announcement",
+      "url": "https://www.fia.com/news/fia-and-formula-1-announce-2026-calendar",
+      "type": "source_card"
+    },
+    {
+      "source_id": "f1_2026_lineups_formula1",
+      "sport": "f1",
+      "title": "Formula1.com 2026 driver line-ups",
+      "url": "https://www.formula1.com/en/latest/article/2026-line-ups-confirmed-in-full-who-is-on-the-grid-for-next-season.3TyLfOUjOwpBKOp3KX1PiS",
+      "type": "source_card"
+    },
+    {
+      "source_id": "fide_may_2026_top_players",
+      "sport": "chess",
+      "title": "FIDE Top 100 classical players, May 2026",
+      "url": "https://ratings.fide.com/a_top.php",
+      "type": "source_card"
+    },
+    {
+      "source_id": "rsssf_cruyff_international_goals",
+      "sport": "football",
+      "title": "RSSSF Johan Cruyff international goals",
+      "url": "https://www.rsssf.org/miscellaneous/cruijff-intlg.html",
+      "type": "source_card"
+    },
+    {
+      "source_id": "fff_platini_profile",
+      "sport": "football",
+      "title": "French Football Federation Michel Platini profile",
+      "url": "https://www.fff.fr/equipe-nationale/joueur/9777-platini-michel/fiche.html",
+      "type": "source_card"
+    },
+    {
+      "source_id": "wikipedia_cruyff_snapshot",
+      "sport": "football",
+      "title": "Johan Cruyff biographical snapshot",
+      "url": "https://en.wikipedia.org/wiki/Johan_Cruyff",
+      "type": "source_card"
+    },
+    {
+      "source_id": "wikipedia_platini_snapshot",
+      "sport": "football",
+      "title": "Michel Platini biographical snapshot",
+      "url": "https://en.wikipedia.org/wiki/Michel_Platini",
+      "type": "source_card"
+    }
+  ],
+  "policy": {
+    "official_first": [
+      "FIFA",
+      "Formula1.com",
+      "FIA",
+      "FIDE"
+    ],
+    "rag_scope": "Local source cards only. No live scraping in offline mode.",
+    "current_facts": "Treat source snapshot dates as part of the answer when schedules, ratings or tournament fields can change."
+  }
+}

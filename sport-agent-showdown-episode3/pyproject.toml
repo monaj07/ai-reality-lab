@@ -1,0 +1,9 @@
+[project]
+name = "sport-agent-showdown-episode3"
+version = "0.1.0"
+description = "Episode 3: compare agentic designs for a football/F1/chess sports agent."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

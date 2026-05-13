@@ -1,0 +1,52 @@
+{
+  "source_id": "f1_2026_lineups_formula1",
+  "source_name": "Formula1.com 2026 driver line-ups confirmed in full",
+  "source_url": "https://www.formula1.com/en/latest/article/2026-line-ups-confirmed-in-full-who-is-on-the-grid-for-next-season.3TyLfOUjOwpBKOp3KX1PiS",
+  "retrieved_at": "2026-05-13",
+  "lineups": {
+    "McLaren": [
+      "Lando Norris",
+      "Oscar Piastri"
+    ],
+    "Mercedes": [
+      "George Russell",
+      "Kimi Antonelli"
+    ],
+    "Red Bull": [
+      "Max Verstappen",
+      "Isack Hadjar"
+    ],
+    "Ferrari": [
+      "Charles Leclerc",
+      "Lewis Hamilton"
+    ],
+    "Williams": [
+      "Alex Albon",
+      "Carlos Sainz"
+    ],
+    "Racing Bulls": [
+      "Liam Lawson",
+      "Arvid Lindblad"
+    ],
+    "Aston Martin": [
+      "Fernando Alonso",
+      "Lance Stroll"
+    ],
+    "Haas": [
+      "Esteban Ocon",
+      "Oliver Bearman"
+    ],
+    "Audi": [
+      "Nico Hulkenberg",
+      "Gabriel Bortoleto"
+    ],
+    "Alpine": [
+      "Pierre Gasly",
+      "Franco Colapinto"
+    ],
+    "Cadillac": [
+      "Valtteri Bottas",
+      "Sergio Perez"
+    ]
+  }
+}

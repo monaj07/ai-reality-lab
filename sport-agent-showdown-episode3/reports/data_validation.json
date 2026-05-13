@@ -1,0 +1,13 @@
+{
+  "valid": true,
+  "world_cup_group_count": 12,
+  "world_cup_team_count": 48,
+  "world_cup_unique_team_count": 48,
+  "italy_in_world_cup": false,
+  "f1_current_round_count": 22,
+  "f1_lineup_team_count": 11,
+  "chess_snapshot_count": 11,
+  "legacy_player_count": 2,
+  "source_card_count": 9,
+  "duplicate_source_ids": []
+}

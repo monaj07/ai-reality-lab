@@ -1,0 +1,40 @@
+{
+  "source_id": "football_legacy_player_cards",
+  "retrieved_at": "2026-05-13",
+  "players": {
+    "Johan Cruyff": {
+      "canonical_name": "Johan Cruyff",
+      "country": "Netherlands",
+      "position": "Forward / attacking midfielder",
+      "era": "1960s-1980s",
+      "international_caps": 48,
+      "international_goals": 33,
+      "notable_clubs": [
+        "Ajax",
+        "Barcelona",
+        "Feyenoord"
+      ],
+      "source_ids": [
+        "rsssf_cruyff_international_goals",
+        "wikipedia_cruyff_snapshot"
+      ]
+    },
+    "Michel Platini": {
+      "canonical_name": "Michel Platini",
+      "country": "France",
+      "position": "Attacking midfielder",
+      "era": "1970s-1980s",
+      "international_caps": 72,
+      "international_goals": 41,
+      "notable_clubs": [
+        "Nancy",
+        "Saint-Étienne",
+        "Juventus"
+      ],
+      "source_ids": [
+        "fff_platini_profile",
+        "wikipedia_platini_snapshot"
+      ]
+    }
+  }
+}

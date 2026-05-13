@@ -1,0 +1,15 @@
+{
+  "design": "single_agent",
+  "cases": 15,
+  "pass_rate": 0.0,
+  "route_accuracy": 0.8888888888888888,
+  "tool_recall": 0.1,
+  "skill_recall": 0.7933333333333333,
+  "citation_recall": 0.4888888888888889,
+  "keyword_recall": 0.58,
+  "forbidden_absence": 0.8666666666666667,
+  "abstention_accuracy": 0.8666666666666667,
+  "unsupported_claim_rate": 0.6666666666666666,
+  "avg_tool_calls": 1,
+  "avg_cost_proxy": 1.35
+}
