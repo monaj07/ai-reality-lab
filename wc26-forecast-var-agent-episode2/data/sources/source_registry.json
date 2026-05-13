@@ -1,0 +1,134 @@
+[
+  {
+    "id": "SRC-FIFA-WC26",
+    "name": "FIFA World Cup 2026 official tournament page",
+    "category": "official_fixture_field",
+    "status": "bundled_and_refreshable",
+    "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026",
+    "fields": [
+      "qualified teams",
+      "groups",
+      "schedule",
+      "venues"
+    ],
+    "license_note": "Use for verification and links; respect FIFA terms. Do not redistribute proprietary feeds."
+  },
+  {
+    "id": "SRC-WIKI-WC26",
+    "name": "2026 FIFA World Cup page",
+    "category": "crosscheck",
+    "status": "bundled_crosscheck",
+    "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup",
+    "fields": [
+      "groups",
+      "format",
+      "teams",
+      "venues"
+    ],
+    "license_note": "CC BY-SA page content; this project stores only small factual summaries."
+  },
+  {
+    "id": "SRC-FIFA-RANKINGS",
+    "name": "FIFA/Coca-Cola World Rankings",
+    "category": "team_strength",
+    "status": "adapter_placeholder",
+    "url": "https://www.fifa.com/en/world-rankings",
+    "fields": [
+      "rank",
+      "points",
+      "rank date"
+    ],
+    "license_note": "Fetch live ranking snapshots only if permitted by terms."
+  },
+  {
+    "id": "SRC-WORLD-ELO",
+    "name": "World Football Elo / national-team Elo source",
+    "category": "team_strength",
+    "status": "adapter_placeholder",
+    "url": "https://www.eloratings.net/",
+    "fields": [
+      "national team Elo",
+      "match history"
+    ],
+    "license_note": "Check source terms before redistribution."
+  },
+  {
+    "id": "SRC-CLUB-ELO",
+    "name": "ClubElo API for club/player-strength proxy",
+    "category": "player_pool_proxy",
+    "status": "adapter_placeholder",
+    "url": "https://clubelo.com/API",
+    "fields": [
+      "club Elo ratings",
+      "club histories"
+    ],
+    "license_note": "Useful proxy for squad club strength; API documentation says daily ranking CSVs are available."
+  },
+  {
+    "id": "SRC-FOOTBALL-DATA",
+    "name": "football-data.co.uk results and odds CSVs",
+    "category": "historical_results_odds",
+    "status": "adapter_placeholder",
+    "url": "https://www.football-data.co.uk/data.php",
+    "fields": [
+      "results",
+      "match stats",
+      "odds"
+    ],
+    "license_note": "Use for modelling only under site terms; do not overfit bookmaker odds."
+  },
+  {
+    "id": "SRC-INJURY-NEWS",
+    "name": "Injury/suspension news feed",
+    "category": "squad_availability",
+    "status": "manual_or_paid_adapter",
+    "url": "manual://news-provider-or-paid-api",
+    "fields": [
+      "injuries",
+      "suspensions",
+      "minutes risk"
+    ],
+    "license_note": "Use licensed feeds or manual notes; never scrape restricted content."
+  },
+  {
+    "id": "SRC-BETTING-MARKET",
+    "name": "Market-implied probabilities",
+    "category": "external_consensus",
+    "status": "disabled_optional",
+    "url": "manual://licensed-odds-provider",
+    "fields": [
+      "market odds",
+      "timestamp",
+      "bookmaker margin"
+    ],
+    "license_note": "Disabled by default. Do not provide betting advice; use only as one probabilistic signal if legally/licensingly allowed."
+  },
+  {
+    "id": "SRC-SAMPLE-TEAM-PRIORS",
+    "name": "Bundled sample team priors",
+    "category": "demo_features",
+    "status": "bundled_demo_only",
+    "url": "file://data/sources/sample_team_features.csv",
+    "fields": [
+      "strength_rating",
+      "rank proxy",
+      "form proxy",
+      "travel load",
+      "host advantage"
+    ],
+    "license_note": "Illustrative demo data, not an official forecast."
+  },
+  {
+    "id": "MODEL-FORECAST-VAR-V1",
+    "name": "Forecast VAR demo rating model",
+    "category": "model",
+    "status": "bundled_demo_model",
+    "url": "file://src/forecast_var/forecast_model.py",
+    "fields": [
+      "match probabilities",
+      "group simulations",
+      "team rankings"
+    ],
+    "license_note": "Educational model; not betting, financial, or deterministic advice."
+  }
+]

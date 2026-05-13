@@ -1,0 +1,154 @@
+{
+  "summary": {
+    "cases": 7,
+    "pass_rate": 1.0,
+    "tool_recall": 1.0,
+    "skill_recall": 1.0,
+    "citation_recall": 1.0,
+    "unsupported_claim_rate": 0.0,
+    "abstention_accuracy": 1.0,
+    "probability_sanity_rate": 1.0
+  },
+  "results": [
+    {
+      "id": "FV-001",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "citation_recall": 1.0,
+      "probability_ok": true,
+      "tools_used": [
+        "validate_tournament_field"
+      ],
+      "skills_used": [
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration"
+      ],
+      "answer": "Italy did not qualify for the 2026 World Cup and is not in the 48-team field, so this forecast agent must exclude Italy from tournament simulations."
+    },
+    {
+      "id": "FV-002",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "citation_recall": 1.0,
+      "probability_ok": true,
+      "tools_used": [
+        "forecast_group"
+      ],
+      "skills_used": [
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration"
+      ],
+      "answer": "Group D favourite: USA at 47.5% to win the group in the demo simulation. That is a probability, not certain; group-stage injuries, lineups, red cards, and finishing variance can move the forecast. The Group D teams are USA, Paraguay, Australia, Türkiye."
+    },
+    {
+      "id": "FV-003",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "citation_recall": 1.0,
+      "probability_ok": true,
+      "tools_used": [
+        "forecast_match",
+        "get_team_inputs"
+      ],
+      "skills_used": [
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration"
+      ],
+      "answer": "For USA vs Australia, the demo model gives USA 50.9%, draw 21.0%, and Australia 28.1%. The main inputs are strength_rating, USA host advantage, travel/load proxy, and bundled demo priors. This is a probability estimate, not a certainty claim about the result."
+    },
+    {
+      "id": "FV-004",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "citation_recall": 1.0,
+      "probability_ok": true,
+      "tools_used": [
+        "rank_teams"
+      ],
+      "skills_used": [
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration"
+      ],
+      "answer": "I cannot guarantee an Argentina title at the 2026 World Cup. The demo model rates Argentina as a leading contender with an illustrative title probability of 8.7%, but tournament forecasts are uncertain and need live squad, injury, schedule, and form updates."
+    },
+    {
+      "id": "FV-005",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "citation_recall": 1.0,
+      "probability_ok": true,
+      "tools_used": [
+        "get_source_registry"
+      ],
+      "skills_used": [
+        "source-triage"
+      ],
+      "answer": "The agent can use official FIFA tournament data, the FIFA/Coca-Cola World Rankings adapter, ClubElo-style player-pool proxies, historical result/odds adapters, injury news adapters, and bundled demo priors. Betting/market sources are disabled by default (Market-implied probabilities) and must not be treated as betting advice. Every external feed needs permitted access and licensing checks."
+    },
+    {
+      "id": "FV-006",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "citation_recall": 1.0,
+      "probability_ok": true,
+      "tools_used": [
+        "rank_teams"
+      ],
+      "skills_used": [
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration",
+        "scenario-analysis"
+      ],
+      "answer": "Scenario run: France loses 80 rating points because of user-specified injuries. Under that scenario, France drops out of the top 5. The top 5 probabilities are Argentina 9.0%, Spain 7.7%, England 7.0%, Portugal 6.2%, Brazil 5.9%. This probability scenario is not confirmed injury news and does not imply injuries decide the tournament."
+    },
+    {
+      "id": "FV-007",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "citation_recall": 1.0,
+      "probability_ok": true,
+      "tools_used": [
+        "rank_teams"
+      ],
+      "skills_used": [
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration"
+      ],
+      "answer": "The top 5 tournament favourites from the current demo model are Argentina (8.7%), France (8.0%), Spain (7.4%), England (6.8%), Portugal (6.0%). These are probability estimates, not certainty claims."
+    }
+  ]
+}

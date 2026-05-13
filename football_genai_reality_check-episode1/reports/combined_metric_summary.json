@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "citation_precision": 0.118,
+    "citation_recall": 0.118,
+    "must_mention_recall": 0.278,
+    "unsupported_rate": 1.0,
+    "pass_rate": 0.0,
+    "abstention_accuracy": 0.824,
+    "n_cases": 17
+  },
+  "grounded": {
+    "citation_precision": 1.0,
+    "citation_recall": 1.0,
+    "must_mention_recall": 1.0,
+    "unsupported_rate": 0.0,
+    "pass_rate": 1.0,
+    "abstention_accuracy": 1.0,
+    "n_cases": 17
+  }
+}

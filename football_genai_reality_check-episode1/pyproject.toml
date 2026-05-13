@@ -1,0 +1,9 @@
+[project]
+name = "football-genai-reality-check"
+version = "0.2.0"
+description = "A 2026 FIFA World Cup grounded GenAI agent and evaluation harness."
+requires-python = ">=3.10"
+dependencies = ["openai>=1.84.0", "pandas>=2.2.0", "matplotlib>=3.8.0"]
+
+[tool.ruff]
+line-length = 100

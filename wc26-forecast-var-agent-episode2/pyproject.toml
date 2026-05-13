@@ -1,0 +1,9 @@
+[project]
+name = "wc26-forecast-var-episode2"
+version = "0.1.0"
+description = "Forecast VAR: agentic AI football prediction lab with MCP, skills, OpenAI live path, and evaluation harness."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

@@ -1,0 +1,49 @@
+team,group,confederation,strength_rating,fifa_rank_proxy,recent_form_index,travel_load_index,host_advantage_points,data_quality,source_ids,notes
+Mexico,A,CONCACAF,1865,16,0.55,0.1,35,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+South Africa,A,CAF,1710,56,0.48,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Korea Republic,A,AFC,1835,24,0.57,0.4,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Czechia,A,UEFA,1815,32,0.52,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Canada,B,CONCACAF,1830,27,0.56,0.15,40,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Bosnia and Herzegovina,B,UEFA,1760,52,0.53,0.35,0,low,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Qatar,B,AFC,1705,58,0.48,0.5,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Switzerland,B,UEFA,1885,18,0.57,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Brazil,C,CONMEBOL,2020,6,0.62,0.45,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Morocco,C,CAF,1905,12,0.6,0.45,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Haiti,C,CONCACAF,1600,86,0.44,0.35,0,low,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Scotland,C,UEFA,1810,34,0.51,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+USA,D,CONCACAF,1860,14,0.54,0.1,55,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Paraguay,D,CONMEBOL,1820,40,0.54,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Australia,D,AFC,1815,26,0.55,0.55,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Türkiye,D,UEFA,1845,25,0.57,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Germany,E,UEFA,1980,9,0.6,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Curaçao,E,CONCACAF,1655,78,0.47,0.4,0,low,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Côte d'Ivoire,E,CAF,1835,31,0.56,0.42,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Ecuador,E,CONMEBOL,1880,23,0.56,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Netherlands,F,UEFA,1985,7,0.61,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Japan,F,AFC,1870,20,0.59,0.5,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Sweden,F,UEFA,1830,38,0.52,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Tunisia,F,CAF,1775,45,0.52,0.45,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Belgium,G,UEFA,1970,8,0.58,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Egypt,G,CAF,1815,33,0.54,0.45,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+IR Iran,G,AFC,1825,28,0.55,0.55,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+New Zealand,G,OFC,1660,80,0.5,0.65,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Spain,H,UEFA,2050,1,0.66,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Cabo Verde,H,CAF,1700,65,0.52,0.45,0,low,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Saudi Arabia,H,AFC,1735,61,0.49,0.55,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Uruguay,H,CONMEBOL,1925,15,0.59,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+France,I,UEFA,2060,3,0.65,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Senegal,I,CAF,1865,19,0.58,0.45,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Iraq,I,AFC,1725,59,0.52,0.55,0,low,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Norway,I,UEFA,1840,29,0.58,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Argentina,J,CONMEBOL,2070,2,0.66,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Algeria,J,CAF,1800,41,0.55,0.45,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Austria,J,UEFA,1875,22,0.58,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Jordan,J,AFC,1690,70,0.51,0.55,0,low,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Portugal,K,UEFA,2025,5,0.63,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Congo DR,K,CAF,1740,57,0.52,0.45,0,low,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Uzbekistan,K,AFC,1750,54,0.53,0.55,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Colombia,K,CONMEBOL,1915,13,0.59,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+England,L,UEFA,2040,4,0.64,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Croatia,L,UEFA,1935,11,0.58,0.35,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Ghana,L,CAF,1785,46,0.53,0.45,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.
+Panama,L,CONCACAF,1720,60,0.52,0.3,0,medium,SRC-SAMPLE-TEAM-PRIORS;SRC-FIFA-WC26;SRC-WIKI-WC26,Demo feature row. Replace strength_rating and rank_proxy with live adapters before public forecasting.

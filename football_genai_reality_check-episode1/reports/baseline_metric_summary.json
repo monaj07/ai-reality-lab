@@ -1,0 +1,9 @@
+{
+  "citation_precision": 0.118,
+  "citation_recall": 0.118,
+  "must_mention_recall": 0.278,
+  "unsupported_rate": 1.0,
+  "pass_rate": 0.0,
+  "abstention_accuracy": 0.824,
+  "n_cases": 17
+}

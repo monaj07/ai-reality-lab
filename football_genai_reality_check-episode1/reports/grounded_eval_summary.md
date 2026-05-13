@@ -1,0 +1,11 @@
+# Evaluation summary: grounded
+
+- **citation_precision**: 1.0
+- **citation_recall**: 1.0
+- **must_mention_recall**: 1.0
+- **unsupported_rate**: 0.0
+- **pass_rate**: 1.0
+- **abstention_accuracy**: 1.0
+- **n_cases**: 17
+
+## Failed cases

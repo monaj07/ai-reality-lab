@@ -1,0 +1,13 @@
+id,team_a,team_b,rating_a,rating_b,actual_result
+2022-F,Argentina,France,2055,2050,D
+2022-SF1,Argentina,Croatia,2050,1935,A
+2022-SF2,France,Morocco,2045,1880,A
+2022-QF-BRA-CRO,Brazil,Croatia,2035,1930,D
+2022-QF-NED-ARG,Netherlands,Argentina,1980,2045,D
+2022-QF-ENG-FRA,England,France,2020,2045,B
+2022-R16-MAR-ESP,Morocco,Spain,1880,2035,D
+2018-F,France,Croatia,2030,1940,A
+2014-F,Germany,Argentina,2050,2030,D
+2010-F,Spain,Netherlands,2040,2010,D
+2006-F,Italy,France,1995,2020,D
+2002-F,Brazil,Germany,2045,2025,A

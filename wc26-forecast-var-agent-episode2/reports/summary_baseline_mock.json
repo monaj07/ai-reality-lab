@@ -1,0 +1,10 @@
+{
+  "cases": 7,
+  "pass_rate": 0.0,
+  "tool_recall": 0.0,
+  "skill_recall": 0.0,
+  "citation_recall": 0.0,
+  "unsupported_claim_rate": 1.0,
+  "abstention_accuracy": 0.8571428571428571,
+  "probability_sanity_rate": 0.2857142857142857
+}
