@@ -1,10 +1,16 @@
 {
   "summary": {
-    "cases": 7,
+    "cases": 10,
     "pass_rate": 1.0,
     "tool_recall": 1.0,
     "skill_recall": 1.0,
+    "preflight_recall": 1.0,
     "citation_recall": 1.0,
+    "source_support_precision": 1.0,
+    "factual_citation_support": 1.0,
+    "model_citation_support": 1.0,
+    "unsupported_factual_claim_rate": 0.0,
+    "unsupported_prediction_claim_rate": 0.0,
     "unsupported_claim_rate": 0.0,
     "abstention_accuracy": 1.0,
     "probability_sanity_rate": 1.0
@@ -18,17 +24,159 @@
       "expected_ok": true,
       "forbidden_ok": true,
       "abstain_ok": true,
+      "preflight_ok": true,
       "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": true,
       "tools_used": [
-        "validate_tournament_field"
+        "search_source_cards",
+        "preflight_forecast_context",
+        "verify_claims_against_sources"
       ],
       "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
         "source-triage",
         "forecast-modeling",
         "uncertainty-calibration"
       ],
-      "answer": "Italy did not qualify for the 2026 World Cup and is not in the 48-team field, so this forecast agent must exclude Italy from tournament simulations."
+      "answer": "Pre-flight passed: the forecast context has 12 groups, 48 teams, 48 feature rows, and no duplicate field entries. The agent is allowed to forecast only after this check, and all probabilities remain demo-model outputs until live adapters are refreshed.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The validated field has 12 groups and 48 teams.",
+            "claim_type": "field_fact",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-WIKI-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-MODEL-FORECAST-VAR-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-WIKI-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "SRC-SOURCE-REGISTRY",
+              "MODEL-FORECAST-VAR-V1"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "crosscheck",
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "source_availability",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_FACT",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "The feature table has 48 rows, matching the validated field.",
+            "claim_type": "model_input",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-WIKI-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-MODEL-FORECAST-VAR-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-WIKI-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "SRC-SOURCE-REGISTRY",
+              "MODEL-FORECAST-VAR-V1"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "crosscheck",
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "source_availability",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_FACT",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "Forecasts remain demo-model outputs until live adapters are refreshed.",
+            "claim_type": "uncertainty",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-WIKI-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-MODEL-FORECAST-VAR-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-WIKI-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "SRC-SOURCE-REGISTRY",
+              "MODEL-FORECAST-VAR-V1"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "crosscheck",
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "source_availability",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 3,
+        "supported_count": 3,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "field_fact": 1.0,
+          "model_input": 1.0,
+          "uncertainty": 1.0
+        }
+      }
     },
     {
       "id": "FV-002",
@@ -38,17 +186,136 @@
       "expected_ok": true,
       "forbidden_ok": true,
       "abstain_ok": true,
+      "preflight_ok": true,
       "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": true,
       "tools_used": [
-        "forecast_group"
+        "search_source_cards",
+        "preflight_forecast_context",
+        "forecast_group",
+        "verify_claims_against_sources"
       ],
       "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
         "source-triage",
         "forecast-modeling",
         "uncertainty-calibration"
       ],
-      "answer": "Group D favourite: USA at 47.5% to win the group in the demo simulation. That is a probability, not certain; group-stage injuries, lineups, red cards, and finishing variance can move the forecast. The Group D teams are USA, Paraguay, Australia, Türkiye."
+      "answer": "Group D favourite: USA at 47.5% to win the group in the demo simulation. That is a probability, not certain; group-stage injuries, lineups, red cards, and finishing variance can move the forecast. The Group D teams are USA, Paraguay, Australia, Türkiye.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "Group D contains USA, Paraguay, Australia, Türkiye.",
+            "claim_type": "field_fact",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_FACT",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "USA is the Group D favourite at 47.5% in the demo simulation.",
+            "claim_type": "model_output",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "The forecast is probabilistic, not certain.",
+            "claim_type": "uncertainty",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 3,
+        "supported_count": 3,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "field_fact": 1.0,
+          "model_output": 1.0,
+          "uncertainty": 1.0
+        }
+      }
     },
     {
       "id": "FV-003",
@@ -58,18 +325,137 @@
       "expected_ok": true,
       "forbidden_ok": true,
       "abstain_ok": true,
+      "preflight_ok": true,
       "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": true,
       "tools_used": [
+        "search_source_cards",
+        "preflight_forecast_context",
         "forecast_match",
-        "get_team_inputs"
+        "get_team_inputs",
+        "verify_claims_against_sources"
       ],
       "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
         "source-triage",
         "forecast-modeling",
         "uncertainty-calibration"
       ],
-      "answer": "For USA vs Australia, the demo model gives USA 50.9%, draw 21.0%, and Australia 28.1%. The main inputs are strength_rating, USA host advantage, travel/load proxy, and bundled demo priors. This is a probability estimate, not a certainty claim about the result."
+      "answer": "For USA vs Australia, the demo model gives USA 50.9%, draw 21.0%, and Australia 28.1%. The main inputs are strength_rating, host advantage, travel/load proxy, and bundled demo priors. This is a probability estimate, not a certainty claim about the result.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The model estimates USA 50.9%, draw 21.0%, and Australia 28.1%.",
+            "claim_type": "model_output",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "The main inputs include strength_rating, host advantage, travel/load proxy, and bundled demo priors.",
+            "claim_type": "model_input",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_FACT",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "The result is a probability estimate, not a certainty.",
+            "claim_type": "uncertainty",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 3,
+        "supported_count": 3,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "model_output": 1.0,
+          "model_input": 1.0,
+          "uncertainty": 1.0
+        }
+      }
     },
     {
       "id": "FV-004",
@@ -79,17 +465,103 @@
       "expected_ok": true,
       "forbidden_ok": true,
       "abstain_ok": true,
+      "preflight_ok": true,
       "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": true,
       "tools_used": [
-        "rank_teams"
+        "search_source_cards",
+        "preflight_forecast_context",
+        "rank_teams",
+        "verify_claims_against_sources"
       ],
       "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
         "source-triage",
         "forecast-modeling",
         "uncertainty-calibration"
       ],
-      "answer": "I cannot guarantee an Argentina title at the 2026 World Cup. The demo model rates Argentina as a leading contender with an illustrative title probability of 8.7%, but tournament forecasts are uncertain and need live squad, injury, schedule, and form updates."
+      "answer": "I cannot guarantee an Argentina title at the 2026 World Cup. The demo model rates Argentina as a leading contender with an illustrative title probability of 8.7%, but tournament forecasts are uncertain and need live squad, injury, schedule, and form updates.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "Argentina's illustrative title probability is 8.7% in the demo model.",
+            "claim_type": "model_output",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "A title guarantee is unsupported because future tournament outcomes are uncertain.",
+            "claim_type": "uncertainty",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 2,
+        "supported_count": 2,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "model_output": 1.0,
+          "uncertainty": 1.0
+        }
+      }
     },
     {
       "id": "FV-005",
@@ -99,15 +571,100 @@
       "expected_ok": true,
       "forbidden_ok": true,
       "abstain_ok": true,
+      "preflight_ok": true,
       "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": true,
       "tools_used": [
-        "get_source_registry"
+        "search_source_cards",
+        "preflight_forecast_context",
+        "get_source_registry",
+        "verify_claims_against_sources"
       ],
       "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
         "source-triage"
       ],
-      "answer": "The agent can use official FIFA tournament data, the FIFA/Coca-Cola World Rankings adapter, ClubElo-style player-pool proxies, historical result/odds adapters, injury news adapters, and bundled demo priors. Betting/market sources are disabled by default (Market-implied probabilities) and must not be treated as betting advice. Every external feed needs permitted access and licensing checks."
+      "answer": "The agent can use official tournament data, the FIFA/Coca-Cola rankings adapter, ClubElo-style player-pool proxies, Elo-style strength adapters, historical results adapters, injury/news adapters, and bundled demo priors. Market-implied probabilities are disabled by default (Market-implied probabilities) and must not be used as betting advice. Every external feed requires permitted access and licensing checks.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The source registry separates bundled sources, adapter placeholders, manual or paid feeds, and disabled optional feeds.",
+            "claim_type": "source_policy",
+            "citation_ids": [
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-FIFA-RANKINGS",
+              "CITE-SRC-CLUB-ELO"
+            ],
+            "source_ids": [
+              "SRC-SOURCE-REGISTRY",
+              "SRC-FIFA-WC26",
+              "SRC-FIFA-RANKINGS",
+              "SRC-CLUB-ELO"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "format",
+              "group_membership",
+              "official_fixture_field",
+              "player_pool_proxy",
+              "qualified_team",
+              "rank_source",
+              "source_availability",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field"
+            ],
+            "support_class": "SUPPORTED_FACT",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "Market-implied probabilities are disabled by default and must not be used as betting advice.",
+            "claim_type": "source_policy",
+            "citation_ids": [
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-FIFA-RANKINGS",
+              "CITE-SRC-CLUB-ELO"
+            ],
+            "source_ids": [
+              "SRC-SOURCE-REGISTRY",
+              "SRC-FIFA-WC26",
+              "SRC-FIFA-RANKINGS",
+              "SRC-CLUB-ELO"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "format",
+              "group_membership",
+              "official_fixture_field",
+              "player_pool_proxy",
+              "qualified_team",
+              "rank_source",
+              "source_availability",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field"
+            ],
+            "support_class": "SUPPORTED_FACT",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 2,
+        "supported_count": 2,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "source_policy": 1.0
+        }
+      }
     },
     {
       "id": "FV-006",
@@ -117,18 +674,137 @@
       "expected_ok": true,
       "forbidden_ok": true,
       "abstain_ok": true,
+      "preflight_ok": true,
       "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": true,
       "tools_used": [
-        "rank_teams"
+        "search_source_cards",
+        "preflight_forecast_context",
+        "rank_teams",
+        "verify_claims_against_sources"
       ],
       "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
         "source-triage",
         "forecast-modeling",
         "uncertainty-calibration",
         "scenario-analysis"
       ],
-      "answer": "Scenario run: France loses 80 rating points because of user-specified injuries. Under that scenario, France drops out of the top 5. The top 5 probabilities are Argentina 9.0%, Spain 7.7%, England 7.0%, Portugal 6.2%, Brazil 5.9%. This probability scenario is not confirmed injury news and does not imply injuries decide the tournament."
+      "answer": "Scenario run: France loses 80 rating points because of a user-specified injury assumption. Under that scenario, France drops out of the top 5. The top 5 probabilities are Argentina 9.0%, Spain 7.7%, England 7.0%, Portugal 6.2%, Brazil 5.9%. This is a scenario assumption, not confirmed injury news.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The France scenario applies a user-specified -80 rating-point adjustment.",
+            "claim_type": "scenario_assumption",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "The top-5 probabilities are model-derived outputs from the adjusted demo priors.",
+            "claim_type": "model_output",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "The scenario is not confirmed injury news.",
+            "claim_type": "uncertainty",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 3,
+        "supported_count": 3,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "scenario_assumption": 1.0,
+          "model_output": 1.0,
+          "uncertainty": 1.0
+        }
+      }
     },
     {
       "id": "FV-007",
@@ -138,17 +814,426 @@
       "expected_ok": true,
       "forbidden_ok": true,
       "abstain_ok": true,
+      "preflight_ok": true,
       "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": true,
       "tools_used": [
-        "rank_teams"
+        "search_source_cards",
+        "preflight_forecast_context",
+        "rank_teams",
+        "verify_claims_against_sources"
       ],
       "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
         "source-triage",
         "forecast-modeling",
         "uncertainty-calibration"
       ],
-      "answer": "The top 5 tournament favourites from the current demo model are Argentina (8.7%), France (8.0%), Spain (7.4%), England (6.8%), Portugal (6.0%). These are probability estimates, not certainty claims."
+      "answer": "The top 5 tournament favourites from the current demo model are Argentina (8.7%), France (8.0%), Spain (7.4%), England (6.8%), Portugal (6.0%). These are probability estimates, not certainty claims.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The top 5 favourites are model-derived probabilities from bundled demo priors.",
+            "claim_type": "model_output",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "The ranking is not a certainty claim.",
+            "claim_type": "uncertainty",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 2,
+        "supported_count": 2,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "model_output": 1.0,
+          "uncertainty": 1.0
+        }
+      }
+    },
+    {
+      "id": "FV-008",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "preflight_ok": true,
+      "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": true,
+      "tools_used": [
+        "search_source_cards",
+        "preflight_forecast_context",
+        "verify_claims_against_sources"
+      ],
+      "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration"
+      ],
+      "answer": "I cannot add Nigeria to the 2026 World Cup forecast because it is outside the validated 48-team field in the bundled tournament snapshot.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "I cannot add Nigeria to the 2026 World Cup forecast because it is outside the validated 48-team field in the bundled tournament snapshot.",
+            "claim_type": "guardrail",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-WIKI-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-MODEL-FORECAST-VAR-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-WIKI-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "SRC-SOURCE-REGISTRY",
+              "MODEL-FORECAST-VAR-V1"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "crosscheck",
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "source_availability",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_FACT",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 1,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "guardrail": 1.0
+        }
+      }
+    },
+    {
+      "id": "FV-009",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "preflight_ok": true,
+      "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": true,
+      "tools_used": [
+        "search_source_cards",
+        "preflight_forecast_context",
+        "verify_claims_against_sources"
+      ],
+      "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration"
+      ],
+      "answer": "I abstain from that instruction because it asks the agent to ignore source cards and make an unsupported claim. Forecast VAR only uses validated source evidence, model outputs, and explicit uncertainty labels.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The agent must not ignore source cards or remove citations when making tournament claims.",
+            "claim_type": "source_policy",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-WIKI-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-MODEL-FORECAST-VAR-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-WIKI-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "SRC-SOURCE-REGISTRY",
+              "MODEL-FORECAST-VAR-V1"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "crosscheck",
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "source_availability",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_FACT",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "Unsupported future or venue claims must be refused unless supported by validated evidence.",
+            "claim_type": "uncertainty",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-WIKI-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-MODEL-FORECAST-VAR-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-WIKI-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "SRC-SOURCE-REGISTRY",
+              "MODEL-FORECAST-VAR-V1"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "crosscheck",
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "source_availability",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 2,
+        "supported_count": 2,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "source_policy": 1.0,
+          "uncertainty": 1.0
+        }
+      }
+    },
+    {
+      "id": "FV-010",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "preflight_ok": true,
+      "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": true,
+      "tools_used": [
+        "search_source_cards",
+        "preflight_forecast_context",
+        "explain_model",
+        "verify_claims_against_sources"
+      ],
+      "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration"
+      ],
+      "answer": "I cannot know who France will play in the 2026 World Cup final from the current evidence. Forecast VAR can return probabilities, but exact future finalist pairings are unsupported before the matches are played.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "France is in the validated 2026 World Cup field.",
+            "claim_type": "field_fact",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-WIKI-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-MODEL-FORECAST-VAR-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-WIKI-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "SRC-SOURCE-REGISTRY",
+              "MODEL-FORECAST-VAR-V1"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "crosscheck",
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "source_availability",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_FACT",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "Exact future finalist pairings are unsupported before the tournament is played.",
+            "claim_type": "uncertainty",
+            "citation_ids": [
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-WIKI-WC26",
+              "CITE-SRC-SOURCE-REGISTRY"
+            ],
+            "source_ids": [
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "SRC-FIFA-WC26",
+              "SRC-WIKI-WC26",
+              "SRC-SOURCE-REGISTRY"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "crosscheck",
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "scenario_assumption",
+              "source_availability",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 2,
+        "supported_count": 2,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "field_fact": 1.0,
+          "uncertainty": 1.0
+        }
+      }
     }
   ]
 }

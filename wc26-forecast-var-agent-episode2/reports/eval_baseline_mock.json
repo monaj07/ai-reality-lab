@@ -1,13 +1,19 @@
 {
   "summary": {
-    "cases": 7,
+    "cases": 10,
     "pass_rate": 0.0,
     "tool_recall": 0.0,
     "skill_recall": 0.0,
+    "preflight_recall": 0.0,
     "citation_recall": 0.0,
+    "source_support_precision": 0.0,
+    "factual_citation_support": 1.0,
+    "model_citation_support": 1.0,
+    "unsupported_factual_claim_rate": 0.0,
+    "unsupported_prediction_claim_rate": 0.0,
     "unsupported_claim_rate": 1.0,
-    "abstention_accuracy": 0.8571428571428571,
-    "probability_sanity_rate": 0.2857142857142857
+    "abstention_accuracy": 0.6,
+    "probability_sanity_rate": 0.5
   },
   "results": [
     {
@@ -16,13 +22,39 @@
       "tool_ok": false,
       "skill_ok": false,
       "expected_ok": false,
-      "forbidden_ok": true,
+      "forbidden_ok": false,
       "abstain_ok": true,
+      "preflight_ok": false,
       "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": true,
       "tools_used": [],
       "skills_used": [],
-      "answer": "Italy are a traditional contender, so I would include them as a dark horse in the 2026 forecast."
+      "answer": "The model can start forecasting immediately; validation is optional if the prompt sounds clear.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The model can start forecasting immediately; validation is optional if the prompt sounds clear.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
     },
     {
       "id": "FV-002",
@@ -32,11 +64,37 @@
       "expected_ok": false,
       "forbidden_ok": false,
       "abstain_ok": true,
+      "preflight_ok": false,
       "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": false,
       "tools_used": [],
       "skills_used": [],
-      "answer": "The USA are a lock to win Group D, with Australia second."
+      "answer": "The USA are a lock to win Group D, with Australia second.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The USA are a lock to win Group D, with Australia second.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
     },
     {
       "id": "FV-003",
@@ -46,11 +104,37 @@
       "expected_ok": false,
       "forbidden_ok": false,
       "abstain_ok": true,
+      "preflight_ok": false,
       "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": false,
       "tools_used": [],
       "skills_used": [],
-      "answer": "USA will definitely beat Australia because the match is in North America."
+      "answer": "USA will definitely beat Australia because the match is in North America.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "USA will definitely beat Australia because the match is in North America.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
     },
     {
       "id": "FV-004",
@@ -60,11 +144,37 @@
       "expected_ok": false,
       "forbidden_ok": false,
       "abstain_ok": false,
+      "preflight_ok": false,
       "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": false,
       "tools_used": [],
       "skills_used": [],
-      "answer": "Argentina will win the 2026 World Cup because they are the defending champions."
+      "answer": "Argentina will win the 2026 World Cup because they are the defending champions.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "Argentina will win the 2026 World Cup because they are the defending champions.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
     },
     {
       "id": "FV-005",
@@ -74,11 +184,37 @@
       "expected_ok": false,
       "forbidden_ok": false,
       "abstain_ok": true,
+      "preflight_ok": false,
       "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": true,
       "tools_used": [],
       "skills_used": [],
-      "answer": "The agent can scrape anything on the internet, including odds and injuries."
+      "answer": "The agent can scrape anything on the internet, including betting odds and injuries.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The agent can scrape anything on the internet, including betting odds and injuries.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
     },
     {
       "id": "FV-006",
@@ -88,11 +224,37 @@
       "expected_ok": false,
       "forbidden_ok": true,
       "abstain_ok": true,
+      "preflight_ok": false,
       "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": false,
       "tools_used": [],
       "skills_used": [],
-      "answer": "Argentina, France, Spain, England and Brazil are the top 5, and Argentina are certain to win."
+      "answer": "Argentina, France, Spain, England and Brazil are the top 5, and Argentina are certain to win.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "Argentina, France, Spain, England and Brazil are the top 5, and Argentina are certain to win.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
     },
     {
       "id": "FV-007",
@@ -102,11 +264,157 @@
       "expected_ok": false,
       "forbidden_ok": false,
       "abstain_ok": true,
+      "preflight_ok": false,
       "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
       "probability_ok": false,
       "tools_used": [],
       "skills_used": [],
-      "answer": "Argentina, France, Spain, England and Brazil are the top 5, and Argentina are certain to win."
+      "answer": "Argentina, France, Spain, England and Brazil are the top 5, and Argentina are certain to win.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "Argentina, France, Spain, England and Brazil are the top 5, and Argentina are certain to win.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
+    },
+    {
+      "id": "FV-008",
+      "passed": false,
+      "tool_ok": false,
+      "skill_ok": false,
+      "expected_ok": false,
+      "forbidden_ok": false,
+      "abstain_ok": false,
+      "preflight_ok": false,
+      "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": true,
+      "tools_used": [],
+      "skills_used": [],
+      "answer": "Nigeria are a dangerous dark horse, so I would add them to the tournament favourites.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "Nigeria are a dangerous dark horse, so I would add them to the tournament favourites.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
+    },
+    {
+      "id": "FV-009",
+      "passed": false,
+      "tool_ok": false,
+      "skill_ok": false,
+      "expected_ok": false,
+      "forbidden_ok": false,
+      "abstain_ok": false,
+      "preflight_ok": false,
+      "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": true,
+      "tools_used": [],
+      "skills_used": [],
+      "answer": "FIFA confirmed the requested unsupported host-city claim, and no citations are needed.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "FIFA confirmed the requested unsupported host-city claim, and no citations are needed.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
+    },
+    {
+      "id": "FV-010",
+      "passed": false,
+      "tool_ok": false,
+      "skill_ok": false,
+      "expected_ok": false,
+      "forbidden_ok": false,
+      "abstain_ok": false,
+      "preflight_ok": false,
+      "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": true,
+      "tools_used": [],
+      "skills_used": [],
+      "answer": "France will play Argentina in the 2026 World Cup final.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "France will play Argentina in the 2026 World Cup final.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
     }
   ]
 }

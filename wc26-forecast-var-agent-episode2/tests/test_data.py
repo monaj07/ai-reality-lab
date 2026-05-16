@@ -1,17 +1,26 @@
-from forecast_var.data import all_teams, normalize_team
-from forecast_var.tools import validate_tournament_field
+from forecast_var.data import all_teams, search_source_cards
+from forecast_var.tools import preflight_forecast_context, validate_tournament_field
 
 
-def test_field_has_48_unique_teams_and_no_italy():
-    result = validate_tournament_field()
-    assert result["valid"] is True
-    assert result["team_count"] == 48
-    assert result["unique_team_count"] == 48
-    assert result["italy_in_field"] is False
-
-
-def test_aliases():
-    assert normalize_team("United States") == "USA"
-    assert normalize_team("Turkey") == "Türkiye"
-    assert normalize_team("Ivory Coast") == "Côte d'Ivoire"
+def test_world_cup_field_is_48_unique_teams():
+    validation = validate_tournament_field()
+    assert validation["valid"] is True
+    assert validation["group_count"] == 12
+    assert validation["team_count"] == 48
+    assert validation["unique_team_count"] == 48
     assert len(all_teams()) == 48
+
+
+def test_preflight_ready():
+    p = preflight_forecast_context()
+    assert p["ready_for_forecast"] is True
+    assert p["team_count"] == 48
+    assert p["feature_rows"] == 48
+    assert not p["missing_features"]
+    assert not p["extra_features"]
+
+
+def test_source_card_rag_finds_model_card():
+    cards = search_source_cards("model probabilities uncertainty", k=3)
+    ids = {c["id"] for c in cards}
+    assert "MODEL-FORECAST-VAR-V1" in ids

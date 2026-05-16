@@ -9,17 +9,15 @@ SKILLS_ROOT = PROJECT_ROOT / ".agents" / "skills"
 
 def select_skills(question: str) -> list[str]:
     q = question.lower()
-    skills: list[str] = []
-    if any(w in q for w in ["source", "qualify", "italy", "field", "group", "rank", "forecast", "predict", "favourite", "favorite", "win", "probability"]):
+    skills: list[str] = ["forecast-preflight", "citation-discipline"]
+    if any(w in q for w in ["source", "field", "group", "rank", "forecast", "predict", "favourite", "favorite", "win", "probability", "include", "outside", "ignore", "citation", "unsupported", "evidence", "final"]):
         skills.append("source-triage")
-    if any(w in q for w in ["predict", "forecast", "probability", "favourite", "favorite", "win", "vs", "group", "top", "rank"]):
+    if any(w in q for w in ["predict", "forecast", "probability", "favourite", "favorite", "win", "vs", "group", "top", "rank", "final"]):
         skills.append("forecast-modeling")
-    if any(w in q for w in ["predict", "forecast", "probability", "certain", "guarantee", "definitely", "will win", "favourite", "favorite"]):
+    if any(w in q for w in ["predict", "forecast", "probability", "certain", "guarantee", "definitely", "will win", "favourite", "favorite", "cannot know", "unsupported", "final"]):
         skills.append("uncertainty-calibration")
     if any(w in q for w in ["what if", "injury", "injuries", "suspended", "without", "scenario", "rating points", "loses"]):
         skills.append("scenario-analysis")
-    if not skills:
-        skills = ["source-triage", "forecast-modeling", "uncertainty-calibration"]
     return list(dict.fromkeys(skills))
 
 

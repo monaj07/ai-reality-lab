@@ -8,12 +8,26 @@ from .data import (
     all_teams,
     citation,
     load_groups,
+    load_source_cards,
     load_source_registry,
     load_team_features,
     normalize_team,
+    search_source_cards as _search_source_cards,
+    source_support_labels,
     team_group,
 )
 from .forecast_model import MODEL_SOURCE_ID, match_probabilities, simulate_group, tournament_favourites
+
+CLAIM_SUPPORT_REQUIREMENTS: dict[str, set[str]] = {
+    "field_fact": {"tournament_field", "group_membership", "qualified_team", "format"},
+    "guardrail": {"tournament_field", "qualified_team"},
+    "source_policy": {"source_policy", "source_availability", "adapter_status"},
+    "model_input": {"model_input", "demo_features", "team_strength_input"},
+    "model_output": {"model_output", "model_logic", "model_input", "demo_features"},
+    "scenario_assumption": {"scenario_assumption", "model_output", "model_input"},
+    "uncertainty": {"uncertainty", "model_logic"},
+    "general": {"tournament_field", "model_output", "source_policy", "uncertainty"},
+}
 
 
 def validate_tournament_field() -> dict[str, Any]:
@@ -24,9 +38,61 @@ def validate_tournament_field() -> dict[str, Any]:
         "group_count": len(groups),
         "team_count": len(teams),
         "unique_team_count": len(set(teams)),
-        "italy_in_field": "Italy" in teams,
         "groups_with_wrong_size": {g: len(ts) for g, ts in groups.items() if len(ts) != 4},
-        "citations": [citation("SRC-FIFA-WC26", "Official tournament page should be the primary refresh source."), citation("SRC-WIKI-WC26", "Cross-check source for group field and tournament format.")],
+        "groups": groups,
+        "citations": [
+            citation("SRC-FIFA-WC26", "Primary source for final groups and tournament field."),
+            citation("SRC-WIKI-WC26", "Cross-check source for group field and format."),
+        ],
+    }
+
+
+def search_source_cards(query: str, k: int = 5) -> dict[str, Any]:
+    cards = _search_source_cards(query, k=k)
+    return {
+        "query": query,
+        "cards": cards,
+        "citations": [c["citation"] for c in cards],
+    }
+
+
+def preflight_forecast_context() -> dict[str, Any]:
+    """Gate forecasts on field, feature, and source readiness.
+
+    The agent should run this before predictions so the episode story is: no
+    model output until the field and model inputs are internally consistent.
+    """
+    validation = validate_tournament_field()
+    teams = all_teams()
+    features = load_team_features()
+    missing_features = sorted(t for t in teams if t not in features)
+    extra_features = sorted(t for t in features if t not in teams)
+    registry = load_source_registry()
+    statuses = sorted({s["status"] for s in registry})
+    ready = validation["valid"] and not missing_features and not extra_features
+    return {
+        "ready_for_forecast": ready,
+        "field_valid": validation["valid"],
+        "group_count": validation["group_count"],
+        "team_count": validation["team_count"],
+        "unique_team_count": validation["unique_team_count"],
+        "feature_rows": len(features),
+        "missing_features": missing_features,
+        "extra_features": extra_features,
+        "source_statuses": statuses,
+        "blocked_reason": None if ready else "Tournament field, feature table, or source registry failed validation.",
+        "warnings": [
+            "Forecasts use bundled demo priors unless adapters are refreshed.",
+            "Do not forecast teams outside the validated 48-team field.",
+            "Do not convert model probabilities into certainty or betting advice.",
+        ],
+        "citations": [
+            citation("SRC-FIFA-WC26"),
+            citation("SRC-WIKI-WC26"),
+            citation("SRC-SAMPLE-TEAM-PRIORS"),
+            citation("SRC-SOURCE-REGISTRY"),
+            citation(MODEL_SOURCE_ID),
+        ],
     }
 
 
@@ -37,7 +103,7 @@ def get_source_registry() -> dict[str, Any]:
         "active_or_bundled": [s for s in registry if s["status"] in {"bundled_and_refreshable", "bundled_crosscheck", "bundled_demo_only", "bundled_demo_model"}],
         "adapter_placeholders": [s for s in registry if "placeholder" in s["status"]],
         "disabled_by_default": [s for s in registry if s["status"] == "disabled_optional"],
-        "citations": [citation("SRC-FIFA-WC26"), citation("SRC-FIFA-RANKINGS"), citation("SRC-CLUB-ELO")],
+        "citations": [citation("SRC-SOURCE-REGISTRY"), citation("SRC-FIFA-WC26"), citation("SRC-FIFA-RANKINGS"), citation("SRC-CLUB-ELO")],
     }
 
 
@@ -120,4 +186,62 @@ def explain_model() -> dict[str, Any]:
         "title_proxy": "Softmax over adjusted team ratings; not a full bracket model.",
         "limitations": ["Bundled priors are illustrative.", "No live injury, squad, weather, odds, or lineup data is included by default.", "Model outputs are probabilities, not certainties."],
         "citations": [citation(MODEL_SOURCE_ID), citation("SRC-SAMPLE-TEAM-PRIORS")],
+    }
+
+
+def _source_ids_from_citation_ids(citation_ids: list[str]) -> list[str]:
+    ids: list[str] = []
+    for cid in citation_ids:
+        if cid.startswith("CITE-"):
+            ids.append(cid.removeprefix("CITE-"))
+        else:
+            ids.append(cid)
+    return ids
+
+
+def verify_claims_against_sources(claims: list[dict[str, Any]]) -> dict[str, Any]:
+    cards = load_source_cards()
+    results: list[dict[str, Any]] = []
+    for claim in claims:
+        text = str(claim.get("text", ""))
+        claim_type = str(claim.get("claim_type", "general"))
+        citation_ids = list(claim.get("citation_ids", []))
+        source_ids = _source_ids_from_citation_ids(citation_ids)
+        support_labels = sorted(source_support_labels(source_ids))
+        required = CLAIM_SUPPORT_REQUIREMENTS.get(claim_type, CLAIM_SUPPORT_REQUIREMENTS["general"])
+        has_real_source = all(sid in cards for sid in source_ids) and bool(source_ids)
+        supported = has_real_source and bool(set(support_labels) & required)
+        if not has_real_source:
+            support_class = "UNSUPPORTED"
+            reason = "No valid citation ids were attached to the claim."
+        elif supported:
+            support_class = "SUPPORTED_FACT" if claim_type in {"field_fact", "guardrail", "source_policy", "model_input"} else "SUPPORTED_MODEL_DERIVED"
+            reason = "At least one cited source has support labels required for this claim type."
+        else:
+            support_class = "PARTIALLY_SUPPORTED"
+            reason = f"Citations exist, but labels {support_labels} do not match required labels {sorted(required)}."
+        results.append({
+            "claim": text,
+            "claim_type": claim_type,
+            "citation_ids": citation_ids,
+            "source_ids": source_ids,
+            "support_labels": support_labels,
+            "support_class": support_class,
+            "supported": supported,
+            "reason": reason,
+        })
+    n = len(results) or 1
+    by_type: dict[str, list[dict[str, Any]]] = {}
+    for r in results:
+        by_type.setdefault(r["claim_type"], []).append(r)
+    type_support = {
+        t: sum(x["supported"] for x in xs) / len(xs)
+        for t, xs in by_type.items()
+    }
+    return {
+        "claims": results,
+        "claim_count": len(results),
+        "supported_count": sum(r["supported"] for r in results),
+        "source_support_precision": sum(r["supported"] for r in results) / n,
+        "type_support": type_support,
     }

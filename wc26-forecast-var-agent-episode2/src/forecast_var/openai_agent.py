@@ -5,22 +5,26 @@ from pathlib import Path
 
 from .schemas import AgentAnswer
 from .skills import build_skill_context, select_skills
+from .tools import verify_claims_against_sources
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 SYSTEM_TEMPLATE = """
 You are Forecast VAR, an agentic football forecasting analyst for a Data VAR / AI Reality Lab episode.
 
-Mission: answer 2026 FIFA World Cup forecasting questions using MCP tools, explicit sources, and calibrated probabilities.
+Mission: answer 2026 FIFA World Cup forecasting questions using MCP tools, explicit sources, calibrated probabilities, and a forecast pre-flight gate.
 
 Rules:
-1. Use MCP tools before answering tournament-field, source, match, group, or ranking questions.
-2. Cite every factual or modelling claim with citation ids returned by tools.
-3. Report probabilities, not deterministic winners.
-4. If asked for a guarantee or certainty about future matches, abstain from the guarantee and explain uncertainty.
-5. Distinguish bundled demo priors from live/refreshed sources.
-6. Do not provide betting advice.
-7. Return strictly as the AgentAnswer schema.
+1. Call search_source_cards to retrieve the local source cards relevant to the question.
+2. Call preflight_forecast_context before any match, group, ranking, or scenario forecast.
+3. Use MCP forecasting tools for model outputs; never invent probabilities.
+4. Cite every factual, source-policy, model-input, model-output, scenario, and uncertainty claim with citation ids returned by tools.
+5. Report probabilities, not deterministic winners.
+6. If asked for a guarantee or certainty about future matches, abstain from the guarantee and explain uncertainty.
+7. Refuse to forecast a team outside the validated 48-team field.
+8. Distinguish bundled demo priors from live/refreshed sources.
+9. Do not provide betting advice.
+10. Return strictly as the AgentAnswer schema.
 
 Selected agent skills:
 {skill_context}
@@ -34,7 +38,9 @@ async def run_openai_agent(question: str, model: str = "gpt-4.1-mini") -> AgentA
     - OPENAI_API_KEY set in the environment
     - openai-agents and mcp installed
 
-    The notebook and tests use deterministic mock mode to avoid API cost.
+    The notebook and tests use deterministic mock mode to avoid API cost. A
+    post-run verifier is applied to the structured output so live answers are
+    audited by the same claim-support harness as the offline mock path.
     """
     try:
         from agents import Agent, Runner
@@ -47,6 +53,8 @@ async def run_openai_agent(question: str, model: str = "gpt-4.1-mini") -> AgentA
     skill_context = build_skill_context(skills)
     server_path = PROJECT_ROOT / "mcp_servers" / "worldcup_forecast" / "server.py"
     allowed_tools = [
+        "search_source_cards",
+        "preflight_forecast_context",
         "validate_tournament_field",
         "get_source_registry",
         "list_groups",
@@ -55,6 +63,7 @@ async def run_openai_agent(question: str, model: str = "gpt-4.1-mini") -> AgentA
         "forecast_group",
         "rank_teams",
         "explain_model",
+        "verify_claims_against_sources",
     ]
 
     async with MCPServerStdio(
@@ -74,7 +83,12 @@ async def run_openai_agent(question: str, model: str = "gpt-4.1-mini") -> AgentA
             model=model,
         )
         result = await Runner.run(agent, question)
-        return result.final_output
+        answer: AgentAnswer = result.final_output
+        verification = verify_claims_against_sources([c.model_dump() for c in answer.claims])
+        answer.metadata["claim_verification"] = verification
+        if "verify_claims_against_sources" not in answer.tools_used:
+            answer.tools_used.append("verify_claims_against_sources")
+        return answer
 
 
 def run_openai_agent_sync(question: str, model: str = "gpt-4.1-mini") -> AgentAnswer:

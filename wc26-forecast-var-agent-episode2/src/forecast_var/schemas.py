@@ -1,7 +1,18 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Literal
 from pydantic import BaseModel, Field
+
+ClaimType = Literal[
+    "field_fact",
+    "source_policy",
+    "model_input",
+    "model_output",
+    "scenario_assumption",
+    "uncertainty",
+    "guardrail",
+    "general",
+]
 
 
 class Citation(BaseModel):
@@ -14,7 +25,19 @@ class Citation(BaseModel):
 
 class ForecastClaim(BaseModel):
     text: str
+    claim_type: ClaimType = "general"
     citation_ids: list[str] = Field(default_factory=list)
+
+
+class ClaimVerification(BaseModel):
+    claim: str
+    claim_type: str
+    citation_ids: list[str]
+    source_ids: list[str]
+    support_labels: list[str]
+    support_class: str
+    supported: bool
+    reason: str
 
 
 class AgentAnswer(BaseModel):

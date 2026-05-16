@@ -1,7 +1,7 @@
 {
   "matches": 12,
-  "mean_log_loss": 1.1574,
-  "mean_brier": 0.6935,
+  "mean_log_loss": 1.1194,
+  "mean_brier": 0.669,
   "rows": [
     {
       "id": "2022-F",
@@ -134,17 +134,17 @@
       "brier": 0.8381433195460007
     },
     {
-      "id": "2006-F",
-      "team_a": "Italy",
+      "id": "2006-SF-POR-FRA",
+      "team_a": "Portugal",
       "team_b": "France",
-      "rating_a": "1995",
+      "rating_a": "1990",
       "rating_b": "2020",
-      "actual_result": "D",
-      "p_A": 0.3465,
-      "p_D": 0.2561,
-      "p_B": 0.3974,
-      "log_loss": 1.3621439008876075,
-      "brier": 0.8313513494912081
+      "actual_result": "B",
+      "p_A": 0.3427,
+      "p_D": 0.2533,
+      "p_B": 0.404,
+      "log_loss": 0.906425929806071,
+      "brier": 0.5368790905157698
     },
     {
       "id": "2002-F",

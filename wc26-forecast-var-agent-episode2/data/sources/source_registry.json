@@ -28,6 +28,21 @@
     "license_note": "CC BY-SA page content; this project stores only small factual summaries."
   },
   {
+    "id": "SRC-SOURCE-REGISTRY",
+    "name": "Forecast VAR source registry",
+    "category": "source_governance",
+    "status": "bundled_and_refreshable",
+    "url": "file://data/sources/source_registry.json",
+    "fields": [
+      "source id",
+      "category",
+      "status",
+      "license note",
+      "fields"
+    ],
+    "license_note": "Local metadata file. Keep current when adding or disabling adapters."
+  },
+  {
     "id": "SRC-FIFA-RANKINGS",
     "name": "FIFA/Coca-Cola World Rankings",
     "category": "team_strength",

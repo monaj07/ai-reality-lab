@@ -13,8 +13,20 @@ mcp = FastMCP("worldcup_forecast", json_response=True)
 
 
 @mcp.tool()
+def search_source_cards(query: str, k: int = 5) -> dict:
+    """Retrieve local source cards for factual/model grounding."""
+    return tools.search_source_cards(query, k=k)
+
+
+@mcp.tool()
+def preflight_forecast_context() -> dict:
+    """Validate field, feature, and source readiness before forecasts."""
+    return tools.preflight_forecast_context()
+
+
+@mcp.tool()
 def validate_tournament_field() -> dict:
-    """Validate the 48-team 2026 World Cup field and whether Italy is present."""
+    """Validate the 48-team 2026 World Cup field and groups."""
     return tools.validate_tournament_field()
 
 
@@ -58,6 +70,12 @@ def rank_teams(limit: int = 10, adjustments: dict | None = None) -> dict:
 def explain_model() -> dict:
     """Explain the forecasting model and limitations."""
     return tools.explain_model()
+
+
+@mcp.tool()
+def verify_claims_against_sources(claims: list[dict]) -> dict:
+    """Classify answer claims as source-supported, model-derived, partial, or unsupported."""
+    return tools.verify_claims_against_sources(claims)
 
 
 if __name__ == "__main__":

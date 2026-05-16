@@ -3,27 +3,7 @@
   "group_count": 12,
   "team_count": 48,
   "unique_team_count": 48,
-  "italy_in_field": false,
   "groups_with_wrong_size": {},
-  "citations": [
-    {
-      "id": "CITE-SRC-FIFA-WC26",
-      "source_id": "SRC-FIFA-WC26",
-      "title": "FIFA World Cup 2026 official tournament page",
-      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026",
-      "detail": "Official tournament page should be the primary refresh source."
-    },
-    {
-      "id": "CITE-SRC-WIKI-WC26",
-      "source_id": "SRC-WIKI-WC26",
-      "title": "2026 FIFA World Cup",
-      "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup",
-      "detail": "Cross-check source for group field and tournament format."
-    }
-  ],
-  "feature_rows": 48,
-  "missing_features": [],
-  "extra_features": [],
   "groups": {
     "A": [
       "Mexico",
@@ -96,6 +76,87 @@
       "Croatia",
       "Ghana",
       "Panama"
+    ]
+  },
+  "citations": [
+    {
+      "id": "CITE-SRC-FIFA-WC26",
+      "source_id": "SRC-FIFA-WC26",
+      "title": "FIFA World Cup 2026 official tournament page",
+      "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026",
+      "detail": "Primary source for final groups and tournament field."
+    },
+    {
+      "id": "CITE-SRC-WIKI-WC26",
+      "source_id": "SRC-WIKI-WC26",
+      "title": "2026 FIFA World Cup cross-check page",
+      "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup",
+      "detail": "Cross-check source for group field and format."
+    }
+  ],
+  "feature_rows": 48,
+  "missing_features": [],
+  "extra_features": [],
+  "preflight": {
+    "ready_for_forecast": true,
+    "field_valid": true,
+    "group_count": 12,
+    "team_count": 48,
+    "unique_team_count": 48,
+    "feature_rows": 48,
+    "missing_features": [],
+    "extra_features": [],
+    "source_statuses": [
+      "adapter_placeholder",
+      "bundled_and_refreshable",
+      "bundled_crosscheck",
+      "bundled_demo_model",
+      "bundled_demo_only",
+      "disabled_optional",
+      "manual_or_paid_adapter"
+    ],
+    "blocked_reason": null,
+    "warnings": [
+      "Forecasts use bundled demo priors unless adapters are refreshed.",
+      "Do not forecast teams outside the validated 48-team field.",
+      "Do not convert model probabilities into certainty or betting advice."
+    ],
+    "citations": [
+      {
+        "id": "CITE-SRC-FIFA-WC26",
+        "source_id": "SRC-FIFA-WC26",
+        "title": "FIFA World Cup 2026 official tournament page",
+        "url": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026",
+        "detail": "Official FIFA tournament hub for the 2026 World Cup teams, groups, schedule, venues, and tournament context. This is the primary source for validating the 48-team field before forecasting."
+      },
+      {
+        "id": "CITE-SRC-WIKI-WC26",
+        "source_id": "SRC-WIKI-WC26",
+        "title": "2026 FIFA World Cup cross-check page",
+        "url": "https://en.wikipedia.org/wiki/2026_FIFA_World_Cup",
+        "detail": "Cross-check page for the 2026 World Cup format, expanded 48-team field, groups, teams, and tournament dates. Use as a secondary sanity check, not as the primary source."
+      },
+      {
+        "id": "CITE-SRC-SAMPLE-TEAM-PRIORS",
+        "source_id": "SRC-SAMPLE-TEAM-PRIORS",
+        "title": "Bundled sample team priors",
+        "url": "file://data/sources/sample_team_features.csv",
+        "detail": "Illustrative offline feature table with team strength rating, rank proxy, recent form proxy, travel/load proxy, host advantage, and source ids for all 48 teams. Replace before public forecasting."
+      },
+      {
+        "id": "CITE-SRC-SOURCE-REGISTRY",
+        "source_id": "SRC-SOURCE-REGISTRY",
+        "title": "Forecast VAR source registry",
+        "url": "file://data/sources/source_registry.json",
+        "detail": "Local registry describing which sources are bundled, refreshable, placeholders, manual or paid adapters, and disabled by default."
+      },
+      {
+        "id": "CITE-MODEL-FORECAST-VAR-V1",
+        "source_id": "MODEL-FORECAST-VAR-V1",
+        "title": "Forecast VAR demo rating model",
+        "url": "file://src/forecast_var/forecast_model.py",
+        "detail": "Educational model converting strength priors into match, group, and tournament probabilities. It produces model-derived probabilities, uncertainty warnings, and scenario outputs, not certainties."
+      }
     ]
   }
 }

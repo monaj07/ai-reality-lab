@@ -10,6 +10,12 @@ from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
+STOPWORDS = {
+    "a", "an", "and", "are", "as", "at", "be", "by", "can", "for", "from",
+    "how", "i", "in", "is", "it", "of", "on", "or", "source", "sources", "the",
+    "this", "to", "use", "what", "which", "who", "with", "world", "cup", "2026",
+}
+
 
 def _clean_name(name: str) -> str:
     text = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode("ascii")
@@ -59,6 +65,7 @@ def load_source_cards() -> dict[str, dict[str, Any]]:
     with open(path, encoding="utf-8") as f:
         for line in f:
             rec = json.loads(line)
+            rec.setdefault("supports", [])
             cards[rec["id"]] = rec
     return cards
 
@@ -113,3 +120,41 @@ def citation(source_id: str, detail: str = "") -> dict[str, str]:
         "url": card.get("url", ""),
         "detail": detail or card.get("claim", ""),
     }
+
+
+def tokenise(text: str) -> set[str]:
+    cleaned = _clean_name(text)
+    return {tok for tok in cleaned.split() if tok and tok not in STOPWORDS and len(tok) > 1}
+
+
+def search_source_cards(query: str, k: int = 5) -> list[dict[str, Any]]:
+    """Tiny transparent RAG retriever over local source cards.
+
+    It intentionally uses token overlap instead of a vector database so the tutorial can
+    explain and test the retrieval step without hidden infrastructure.
+    """
+    q_tokens = tokenise(query)
+    scored: list[tuple[float, dict[str, Any]]] = []
+    for card in load_source_cards().values():
+        text = " ".join(str(card.get(x, "")) for x in ["id", "title", "claim", "url"])
+        text += " " + " ".join(card.get("supports", []))
+        c_tokens = tokenise(text)
+        overlap = len(q_tokens & c_tokens)
+        score = overlap / max(len(q_tokens), 1)
+        if _clean_name(card["id"]) in _clean_name(query):
+            score += 1.0
+        if score > 0:
+            item = dict(card)
+            item["score"] = round(score, 4)
+            item["citation"] = citation(card["id"])
+            scored.append((score, item))
+    scored.sort(key=lambda x: (-x[0], x[1]["id"]))
+    return [item for _, item in scored[:k]]
+
+
+def source_support_labels(source_ids: list[str]) -> set[str]:
+    cards = load_source_cards()
+    labels: set[str] = set()
+    for sid in source_ids:
+        labels.update(cards.get(sid, {}).get("supports", []))
+    return labels
