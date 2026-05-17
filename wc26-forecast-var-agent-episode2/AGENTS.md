@@ -1,85 +1,106 @@
-# AGENTS.md - Forecast VAR Episode 2
+# AGENTS.md - Forecast VAR source-aware edition
 
-These instructions apply to coding agents working in this repository.
+This file gives coding agents and human contributors the project rules for Episode 2.
 
-## Mission
+## Project mission
 
-Maintain a compact, readable World Cup 2026 prediction-agent project that demonstrates modern agent engineering without over-engineering.
+Forecast VAR is a World Cup 2026 prediction-agent lab. It demonstrates how an agent can forecast while remaining auditable:
 
-The project story is:
+```text
+pre-flight validation
+source adapters
+evidence index
+MCP tools
+agent skills
+typed claims
+claim verification
+evaluation harness
+```
 
-> A World Cup prediction agent must validate its forecast context, retrieve source cards, use MCP tools, cite claims, separate facts from model outputs, and refuse fake certainty.
+The story is prediction-agent reliability, not football pundit certainty.
 
-Do not turn this repository into a generic factual-QA episode. Keep changes aligned with the Forecast VAR prediction narrative.
+## Core rules
 
-## Core principles
-
-1. **Prediction discipline**
-   - Never present future outcomes as certain.
-   - Report probabilities and uncertainty.
-   - Separate factual claims, model inputs, model outputs, scenario assumptions, and guardrails.
-
-2. **Forecast pre-flight first**
-   - Forecasting should be gated by `preflight_forecast_context()`.
-   - The pre-flight check validates the 12 groups, 48 teams, unique field, matching feature rows, and source registry readiness.
-
-3. **MCP as the tool boundary**
-   - Add new agent-callable functionality through `mcp_servers/worldcup_forecast/server.py` and `src/forecast_var/tools.py`.
-   - Keep MCP tools read-only unless a future episode explicitly requires state changes.
-
-4. **RAG should stay transparent**
-   - The source-card retriever is intentionally simple.
-   - Do not add a vector database unless the episode specifically needs to teach retrieval infrastructure.
-
-5. **Claim support matters**
-   - Add citations to all answer claims.
-   - Use `claim_type` accurately.
-   - Keep support labels in `data/facts/source_cards.jsonl` synchronized with the verifier rules in `src/forecast_var/tools.py`.
-
-6. **No betting advice**
-   - Do not turn market-implied probabilities into betting recommendations.
-   - Market feeds are disabled by default in this tutorial.
-
-7. **Live API path is optional**
-   - Offline deterministic mock mode must remain the default for tests and notebooks.
-   - The OpenAI path must remain runnable when `OPENAI_API_KEY` is set.
+1. Keep the code small, readable, and tutorial-friendly.
+2. Prefer deterministic Python tools for probabilities; do not make the LLM invent numbers.
+3. Keep live source adapters opt-in and disabled by default.
+4. Cite every factual, model-derived, market, rolling-state, and uncertainty claim.
+5. Never present demo priors or sample odds as live official data.
+6. Never provide betting advice.
+7. Run `pytest`, `evaluate.py`, `validate_data.py`, and `validate_skills.py` after structural changes.
+8. Keep every `.agents/skills/*/SKILL.md` file frontmatter-labeled with exactly `name` and `description`.
+9. Use only `AGENTS.md`; do not add a duplicate `Agents.md`.
 
 ## Important files
 
 ```text
-src/forecast_var/tools.py                 # MCP tool implementations and verifier
-src/forecast_var/mock_agent.py            # Deterministic offline agents
-src/forecast_var/openai_agent.py          # Live OpenAI Agents SDK path
-src/forecast_var/eval_harness.py          # Evaluation metrics
-mcp_servers/worldcup_forecast/server.py   # MCP server exposed to agents
-data/facts/source_cards.jsonl             # Lightweight RAG corpus
-data/sources/source_registry.json         # Source governance
-data/eval/episode2_eval_cases.jsonl       # Benchmark cases
+src/forecast_var/source_adapters.py  # source -> evidence-index layer
+src/forecast_var/tournament_sim.py   # Monte Carlo and rolling forecast helpers
+src/forecast_var/tools.py            # MCP-facing tool implementations
+src/forecast_var/mock_agent.py       # deterministic offline agent for tests and notebook
+src/forecast_var/openai_agent.py     # live OpenAI Agents SDK path
+src/forecast_var/eval_harness.py     # agent evaluation metrics
+mcp_servers/worldcup_forecast/server.py
 ```
 
-## Development checklist
 
-Before packaging changes, run:
+## Live model policy
 
-```bash
-PYTHONPATH=src python scripts/validate_data.py
-PYTHONPATH=src python scripts/evaluate.py --mode baseline_mock
-PYTHONPATH=src python scripts/evaluate.py --mode grounded_mock
-PYTHONPATH=src python scripts/backtest_model.py
-PYTHONPATH=src python scripts/generate_figures.py
-PYTHONPATH=src pytest -q
-```
-
-Expected test result:
+The offline notebook and tests use deterministic mock agents. The live OpenAI path defaults to:
 
 ```text
-10 passed
+gpt-5.4-nano
+```
+
+Keep this default centralized in `src/forecast_var/config.py`. Do not hard-code model names in scripts or examples.
+
+## Source adapter policy
+
+Adapters should return compact, auditable evidence documents. Every document should include:
+
+```text
+id
+source_id
+title
+text
+supports labels
+metadata
+as_of_utc where relevant
+```
+
+Do not add scraping code for restricted websites. API adapters must be env-gated and documented.
+
+## MCP policy
+
+MCP tools should be read-only unless they explicitly write a local generated artifact such as `data/generated/evidence_index.jsonl`.
+
+All tools should return:
+
+```text
+structured dictionaries
+warnings where needed
+citations when claims can be made from the output
+```
+
+## Evaluation policy
+
+The grounded mock should pass all eval cases. The baseline mock should fail for meaningful reasons.
+
+Run:
+
+```bash
+PYTHONPATH=src python scripts/refresh_sources.py
+PYTHONPATH=src python scripts/validate_data.py
+PYTHONPATH=src python scripts/validate_skills.py
+PYTHONPATH=src python scripts/evaluate.py --mode baseline_mock
+PYTHONPATH=src python scripts/evaluate.py --mode grounded_mock
+PYTHONPATH=src pytest -q
 ```
 
 ## Style
 
-- Prefer small functions and readable code.
-- Avoid framework sprawl.
-- Use OpenAI SDK / OpenAI Agents SDK for the live path.
-- Do not introduce LangChain, Anthropic-specific code, or unnecessary orchestration frameworks.
-- Keep examples reproducible offline.
+- Use comments to explain non-obvious design choices.
+- Keep functions short where possible.
+- Prefer plain Python over framework-heavy abstractions.
+- Avoid hidden global state except cached loaders in `data.py`.
+- Add examples to README whenever adding a new user-facing command.

@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from forecast_var.data import all_teams, load_groups, load_team_features
-from forecast_var.tools import preflight_forecast_context, validate_tournament_field
+from forecast_var.tools import preflight_forecast_context, validate_tournament_field, source_coverage_report
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
@@ -21,6 +21,7 @@ def main() -> None:
         "extra_features": extra_features,
         "groups": load_groups(),
         "preflight": preflight_forecast_context(),
+        "source_coverage": source_coverage_report(),
     })
     validation["valid"] = validation["valid"] and not missing_features and not extra_features and validation["preflight"]["ready_for_forecast"]
     (PROJECT_ROOT / "reports").mkdir(exist_ok=True)

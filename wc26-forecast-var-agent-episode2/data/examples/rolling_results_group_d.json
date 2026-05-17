@@ -1,0 +1,6 @@
+{
+  "description": "Illustrative completed result for demonstrating rolling forecasts; not a real 2026 match result.",
+  "results": [
+    {"team_a": "USA", "team_b": "Australia", "team_a_goals": 2, "team_b_goals": 1}
+  ]
+}

@@ -148,15 +148,75 @@ def run_grounded_mock(question: str) -> AgentAnswer:
         claims.append(_claim(answer, preflight_cites, "guardrail"))
         abstained = True
         warnings = preflight["warnings"]
+    elif "coverage" in q or "source coverage" in q or "data coverage" in q:
+        res = tools.source_coverage_report(); tools_used.append("source_coverage_report")
+        cites = add_cites(res["citations"])
+        coverage = res["coverage"]
+        answer = (
+            "Source coverage report: field/groups are covered by the official snapshot; team priors and sample market baselines are bundled demo inputs; "
+            "injuries and lineups are adapter slots or curated notes only; rolling forecasts are supported when completed results are supplied. "
+            f"Evidence document counts by source include {res['evidence_document_counts']}."
+        )
+        warnings = res["warnings"]
+        claims.append(_claim("The source coverage report separates official field data, demo team priors, demo market baselines, adapter slots, curated notes, and rolling-state support.", cites, "source_coverage"))
+        claims.append(_claim("Live injury, lineup, and odds sources are disabled unless explicitly refreshed with permitted access.", cites, "source_policy"))
+    elif "market" in q or "odds" in q:
+        res = tools.forecast_match_with_context("USA", "Australia"); tools_used.extend(["forecast_match_with_context", "extract_market_baseline", "search_evidence_index"])
+        cites = add_cites(res["citations"])
+        fp = res["forecast"]["probabilities"]
+        mp = res["market_baseline"]
+        probs = {"model_USA_win": fp["p_team_a_win"], "model_draw": fp["p_draw"], "model_Australia_win": fp["p_team_b_win"]}
+        if mp.get("available"):
+            probs.update({"market_USA_win": mp["market_p_team_a_win"], "market_draw": mp["market_p_draw"], "market_Australia_win": mp["market_p_team_b_win"]})
+            answer = (
+                f"For USA vs Australia, the model says USA {fp['p_team_a_win']:.1%}, draw {fp['p_draw']:.1%}, Australia {fp['p_team_b_win']:.1%}. "
+                f"The sample de-vig market baseline says USA {mp['market_p_team_a_win']:.1%}, draw {mp['market_p_draw']:.1%}, Australia {mp['market_p_team_b_win']:.1%}, "
+                f"with bookmaker margin {mp['bookmaker_margin']:.1%}. This is a comparison baseline, not betting advice."
+            )
+        else:
+            answer = "No bundled market baseline exists for that matchup, so the agent should not invent market probabilities."
+        warnings = res["data_gaps"]
+        claims.append(_claim("The USA vs Australia model probabilities are model-derived outputs from Forecast VAR demo priors.", cites, "model_output"))
+        claims.append(_claim("The sample market baseline is de-vigged from bundled illustrative odds and is not betting advice.", cites, "market_baseline"))
+        claims.append(_claim("Live lineups and injury feeds are not bundled by default, so they remain data gaps.", cites, "source_coverage"))
+    elif "monte carlo" in q or "simulate tournament" in q or "champion" in q:
+        res = tools.simulate_tournament(sims=500, limit=5); tools_used.append("simulate_tournament")
+        cites = add_cites(res["citations"])
+        top = res["top_teams"]
+        probs = {f"{r['team']}_champion": r["champion"] for r in top}
+        answer = (
+            f"The Monte Carlo demo ran {res['simulation_count']} simulations. Top champion probabilities are "
+            + ", ".join(f"{r['team']} {r['champion']:.1%}" for r in top)
+            + ". The simulator approximates a seeded 32-team knockout and should be treated as an educational model, not a certainty."
+        )
+        warnings = res["warnings"]
+        claims.append(_claim("The Monte Carlo champion probabilities are simulation outputs from the educational Forecast VAR simulator.", cites, "simulation_output"))
+        claims.append(_claim("The knockout bracket is approximate and not an official FIFA path simulation.", cites, "uncertainty"))
+    elif "rolling" in q or "after usa" in q or "2-1" in q:
+        locked = [{"team_a": "USA", "team_b": "Australia", "team_a_goals": 2, "team_b_goals": 1}]
+        res = tools.rolling_group_forecast("D", locked, sims=800); tools_used.append("rolling_group_forecast")
+        cites = add_cites(res["citations"])
+        gp = res["probabilities"]
+        leader = max(gp.items(), key=lambda kv: kv[1]["winner"])
+        probs = {f"{team}_group_winner_after_lock": vals["winner"] for team, vals in gp.items()}
+        answer = (
+            "Rolling Group D forecast after locking the illustrative result USA 2-1 Australia: "
+            f"{leader[0]} is the group-winner favourite at {leader[1]['winner']:.1%}. "
+            "Completed results are user-supplied demo state, while remaining fixtures still use demo priors."
+        )
+        warnings = res["warnings"]
+        claims.append(_claim("The rolling forecast locks the supplied completed result before simulating remaining Group D fixtures.", cites, "rolling_state"))
+        claims.append(_claim(f"{leader[0]} is the rolling Group D winner favourite at {leader[1]['winner']:.1%} in the demo simulation.", cites, "simulation_output"))
+        claims.append(_claim("Remaining fixtures still use demo priors unless source adapters are refreshed.", cites, "uncertainty"))
     elif "source" in q or "disabled" in q:
         res = tools.get_source_registry(); tools_used.append("get_source_registry")
         cites = add_cites(res["citations"])
         disabled = ", ".join(s["name"] for s in res["disabled_by_default"])
         answer = (
-            "The agent can use official tournament data, the FIFA/Coca-Cola rankings adapter, ClubElo-style player-pool proxies, Elo-style strength adapters, historical results adapters, injury/news adapters, and bundled demo priors. "
+            "The agent can use official tournament data, the FIFA/Coca-Cola rankings adapter, ClubElo-style player-pool proxies, Elo-style strength adapters, historical results adapters, injury/news adapters, bundled demo priors, curated evidence, API-Football/football-data.org adapter slots, and optional market baselines. "
             f"Market-implied probabilities are disabled by default ({disabled}) and must not be used as betting advice. Every external feed requires permitted access and licensing checks."
         )
-        claims.append(_claim("The source registry separates bundled sources, adapter placeholders, manual or paid feeds, and disabled optional feeds.", cites, "source_policy"))
+        claims.append(_claim("The source registry separates bundled sources, adapter placeholders, manual or paid feeds, reference-only sources, and disabled optional feeds.", cites, "source_policy"))
         claims.append(_claim("Market-implied probabilities are disabled by default and must not be used as betting advice.", cites, "source_policy"))
     elif "usa" in q and "australia" in q:
         res = tools.forecast_match("USA", "Australia"); tools_used.extend(["forecast_match", "get_team_inputs"])
@@ -214,7 +274,7 @@ def run_grounded_mock(question: str) -> AgentAnswer:
         claims.append(_claim("The ranking is not a certainty claim.", cites, "uncertainty"))
     else:
         group = _group_from_question(question) or "D"
-        res = tools.forecast_group(group); tools_used.append("forecast_group")
+        res = tools.forecast_group(group, sims=1000); tools_used.append("forecast_group")
         cites = add_cites(res["citations"])
         gp = res["group_probabilities"]
         winner = max(gp.items(), key=lambda kv: kv[1]["winner"])

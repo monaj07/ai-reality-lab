@@ -1,6 +1,6 @@
 {
   "summary": {
-    "cases": 10,
+    "cases": 14,
     "pass_rate": 1.0,
     "tool_recall": 1.0,
     "skill_recall": 1.0,
@@ -55,6 +55,7 @@
               "CITE-SRC-WIKI-WC26",
               "CITE-SRC-SAMPLE-TEAM-PRIORS",
               "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-EVIDENCE-INDEX",
               "CITE-MODEL-FORECAST-VAR-V1"
             ],
             "source_ids": [
@@ -62,12 +63,14 @@
               "SRC-WIKI-WC26",
               "SRC-SAMPLE-TEAM-PRIORS",
               "SRC-SOURCE-REGISTRY",
+              "SRC-EVIDENCE-INDEX",
               "MODEL-FORECAST-VAR-V1"
             ],
             "support_labels": [
               "adapter_status",
               "crosscheck",
               "demo_features",
+              "evidence_index",
               "format",
               "group_membership",
               "model_input",
@@ -76,8 +79,10 @@
               "official_fixture_field",
               "preflight",
               "qualified_team",
+              "rag_retrieval",
               "scenario_assumption",
               "source_availability",
+              "source_coverage",
               "source_policy",
               "team_strength_input",
               "tournament_field",
@@ -95,6 +100,7 @@
               "CITE-SRC-WIKI-WC26",
               "CITE-SRC-SAMPLE-TEAM-PRIORS",
               "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-EVIDENCE-INDEX",
               "CITE-MODEL-FORECAST-VAR-V1"
             ],
             "source_ids": [
@@ -102,12 +108,14 @@
               "SRC-WIKI-WC26",
               "SRC-SAMPLE-TEAM-PRIORS",
               "SRC-SOURCE-REGISTRY",
+              "SRC-EVIDENCE-INDEX",
               "MODEL-FORECAST-VAR-V1"
             ],
             "support_labels": [
               "adapter_status",
               "crosscheck",
               "demo_features",
+              "evidence_index",
               "format",
               "group_membership",
               "model_input",
@@ -116,8 +124,10 @@
               "official_fixture_field",
               "preflight",
               "qualified_team",
+              "rag_retrieval",
               "scenario_assumption",
               "source_availability",
+              "source_coverage",
               "source_policy",
               "team_strength_input",
               "tournament_field",
@@ -135,6 +145,7 @@
               "CITE-SRC-WIKI-WC26",
               "CITE-SRC-SAMPLE-TEAM-PRIORS",
               "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-EVIDENCE-INDEX",
               "CITE-MODEL-FORECAST-VAR-V1"
             ],
             "source_ids": [
@@ -142,12 +153,14 @@
               "SRC-WIKI-WC26",
               "SRC-SAMPLE-TEAM-PRIORS",
               "SRC-SOURCE-REGISTRY",
+              "SRC-EVIDENCE-INDEX",
               "MODEL-FORECAST-VAR-V1"
             ],
             "support_labels": [
               "adapter_status",
               "crosscheck",
               "demo_features",
+              "evidence_index",
               "format",
               "group_membership",
               "model_input",
@@ -156,8 +169,10 @@
               "official_fixture_field",
               "preflight",
               "qualified_team",
+              "rag_retrieval",
               "scenario_assumption",
               "source_availability",
+              "source_coverage",
               "source_policy",
               "team_strength_input",
               "tournament_field",
@@ -207,7 +222,7 @@
         "forecast-modeling",
         "uncertainty-calibration"
       ],
-      "answer": "Group D favourite: USA at 47.5% to win the group in the demo simulation. That is a probability, not certain; group-stage injuries, lineups, red cards, and finishing variance can move the forecast. The Group D teams are USA, Paraguay, Australia, Türkiye.",
+      "answer": "Group D favourite: USA at 49.8% to win the group in the demo simulation. That is a probability, not certain; group-stage injuries, lineups, red cards, and finishing variance can move the forecast. The Group D teams are USA, Paraguay, Australia, Türkiye.",
       "claim_verification": {
         "claims": [
           {
@@ -243,7 +258,7 @@
             "reason": "At least one cited source has support labels required for this claim type."
           },
           {
-            "claim": "USA is the Group D favourite at 47.5% in the demo simulation.",
+            "claim": "USA is the Group D favourite at 49.8% in the demo simulation.",
             "claim_type": "model_output",
             "citation_ids": [
               "CITE-SRC-FIFA-WC26",
@@ -588,38 +603,61 @@
       "skills_used": [
         "forecast-preflight",
         "citation-discipline",
-        "source-triage"
+        "source-triage",
+        "source-adapter-governance"
       ],
-      "answer": "The agent can use official tournament data, the FIFA/Coca-Cola rankings adapter, ClubElo-style player-pool proxies, Elo-style strength adapters, historical results adapters, injury/news adapters, and bundled demo priors. Market-implied probabilities are disabled by default (Market-implied probabilities) and must not be used as betting advice. Every external feed requires permitted access and licensing checks.",
+      "answer": "The agent can use official tournament data, the FIFA/Coca-Cola rankings adapter, ClubElo-style player-pool proxies, Elo-style strength adapters, historical results adapters, injury/news adapters, bundled demo priors, curated evidence, API-Football/football-data.org adapter slots, and optional market baselines. Market-implied probabilities are disabled by default (Market-implied probabilities) and must not be used as betting advice. Every external feed requires permitted access and licensing checks.",
       "claim_verification": {
         "claims": [
           {
-            "claim": "The source registry separates bundled sources, adapter placeholders, manual or paid feeds, and disabled optional feeds.",
+            "claim": "The source registry separates bundled sources, adapter placeholders, manual or paid feeds, reference-only sources, and disabled optional feeds.",
             "claim_type": "source_policy",
             "citation_ids": [
               "CITE-SRC-SOURCE-REGISTRY",
               "CITE-SRC-FIFA-WC26",
               "CITE-SRC-FIFA-RANKINGS",
-              "CITE-SRC-CLUB-ELO"
+              "CITE-SRC-CLUB-ELO",
+              "CITE-SRC-API-FOOTBALL",
+              "CITE-SRC-FOOTBALL-DATA-ORG",
+              "CITE-SRC-CURATED-EVIDENCE",
+              "CITE-SRC-SAMPLE-MARKET-ODDS",
+              "CITE-SRC-SPORT-MYSTIC-REFERENCE"
             ],
             "source_ids": [
               "SRC-SOURCE-REGISTRY",
               "SRC-FIFA-WC26",
               "SRC-FIFA-RANKINGS",
-              "SRC-CLUB-ELO"
+              "SRC-CLUB-ELO",
+              "SRC-API-FOOTBALL",
+              "SRC-FOOTBALL-DATA-ORG",
+              "SRC-CURATED-EVIDENCE",
+              "SRC-SAMPLE-MARKET-ODDS",
+              "SRC-SPORT-MYSTIC-REFERENCE"
             ],
             "support_labels": [
               "adapter_status",
+              "curated_context",
+              "evaluation",
               "format",
               "group_membership",
+              "injury_data",
+              "lineup_data",
+              "live_adapter",
+              "market_baseline",
+              "model_input",
               "official_fixture_field",
               "player_pool_proxy",
               "qualified_team",
               "rank_source",
+              "reference_architecture",
+              "rolling_state",
               "source_availability",
+              "source_coverage",
               "source_policy",
+              "structured_match_data",
               "team_strength_input",
-              "tournament_field"
+              "tournament_field",
+              "uncertainty"
             ],
             "support_class": "SUPPORTED_FACT",
             "supported": true,
@@ -632,26 +670,48 @@
               "CITE-SRC-SOURCE-REGISTRY",
               "CITE-SRC-FIFA-WC26",
               "CITE-SRC-FIFA-RANKINGS",
-              "CITE-SRC-CLUB-ELO"
+              "CITE-SRC-CLUB-ELO",
+              "CITE-SRC-API-FOOTBALL",
+              "CITE-SRC-FOOTBALL-DATA-ORG",
+              "CITE-SRC-CURATED-EVIDENCE",
+              "CITE-SRC-SAMPLE-MARKET-ODDS",
+              "CITE-SRC-SPORT-MYSTIC-REFERENCE"
             ],
             "source_ids": [
               "SRC-SOURCE-REGISTRY",
               "SRC-FIFA-WC26",
               "SRC-FIFA-RANKINGS",
-              "SRC-CLUB-ELO"
+              "SRC-CLUB-ELO",
+              "SRC-API-FOOTBALL",
+              "SRC-FOOTBALL-DATA-ORG",
+              "SRC-CURATED-EVIDENCE",
+              "SRC-SAMPLE-MARKET-ODDS",
+              "SRC-SPORT-MYSTIC-REFERENCE"
             ],
             "support_labels": [
               "adapter_status",
+              "curated_context",
+              "evaluation",
               "format",
               "group_membership",
+              "injury_data",
+              "lineup_data",
+              "live_adapter",
+              "market_baseline",
+              "model_input",
               "official_fixture_field",
               "player_pool_proxy",
               "qualified_team",
               "rank_source",
+              "reference_architecture",
+              "rolling_state",
               "source_availability",
+              "source_coverage",
               "source_policy",
+              "structured_match_data",
               "team_strength_input",
-              "tournament_field"
+              "tournament_field",
+              "uncertainty"
             ],
             "support_class": "SUPPORTED_FACT",
             "supported": true,
@@ -951,6 +1011,7 @@
               "CITE-SRC-WIKI-WC26",
               "CITE-SRC-SAMPLE-TEAM-PRIORS",
               "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-EVIDENCE-INDEX",
               "CITE-MODEL-FORECAST-VAR-V1"
             ],
             "source_ids": [
@@ -958,12 +1019,14 @@
               "SRC-WIKI-WC26",
               "SRC-SAMPLE-TEAM-PRIORS",
               "SRC-SOURCE-REGISTRY",
+              "SRC-EVIDENCE-INDEX",
               "MODEL-FORECAST-VAR-V1"
             ],
             "support_labels": [
               "adapter_status",
               "crosscheck",
               "demo_features",
+              "evidence_index",
               "format",
               "group_membership",
               "model_input",
@@ -972,8 +1035,10 @@
               "official_fixture_field",
               "preflight",
               "qualified_team",
+              "rag_retrieval",
               "scenario_assumption",
               "source_availability",
+              "source_coverage",
               "source_policy",
               "team_strength_input",
               "tournament_field",
@@ -1018,7 +1083,8 @@
         "citation-discipline",
         "source-triage",
         "forecast-modeling",
-        "uncertainty-calibration"
+        "uncertainty-calibration",
+        "source-adapter-governance"
       ],
       "answer": "I abstain from that instruction because it asks the agent to ignore source cards and make an unsupported claim. Forecast VAR only uses validated source evidence, model outputs, and explicit uncertainty labels.",
       "claim_verification": {
@@ -1031,6 +1097,7 @@
               "CITE-SRC-WIKI-WC26",
               "CITE-SRC-SAMPLE-TEAM-PRIORS",
               "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-EVIDENCE-INDEX",
               "CITE-MODEL-FORECAST-VAR-V1"
             ],
             "source_ids": [
@@ -1038,12 +1105,14 @@
               "SRC-WIKI-WC26",
               "SRC-SAMPLE-TEAM-PRIORS",
               "SRC-SOURCE-REGISTRY",
+              "SRC-EVIDENCE-INDEX",
               "MODEL-FORECAST-VAR-V1"
             ],
             "support_labels": [
               "adapter_status",
               "crosscheck",
               "demo_features",
+              "evidence_index",
               "format",
               "group_membership",
               "model_input",
@@ -1052,8 +1121,10 @@
               "official_fixture_field",
               "preflight",
               "qualified_team",
+              "rag_retrieval",
               "scenario_assumption",
               "source_availability",
+              "source_coverage",
               "source_policy",
               "team_strength_input",
               "tournament_field",
@@ -1071,6 +1142,7 @@
               "CITE-SRC-WIKI-WC26",
               "CITE-SRC-SAMPLE-TEAM-PRIORS",
               "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-EVIDENCE-INDEX",
               "CITE-MODEL-FORECAST-VAR-V1"
             ],
             "source_ids": [
@@ -1078,12 +1150,14 @@
               "SRC-WIKI-WC26",
               "SRC-SAMPLE-TEAM-PRIORS",
               "SRC-SOURCE-REGISTRY",
+              "SRC-EVIDENCE-INDEX",
               "MODEL-FORECAST-VAR-V1"
             ],
             "support_labels": [
               "adapter_status",
               "crosscheck",
               "demo_features",
+              "evidence_index",
               "format",
               "group_membership",
               "model_input",
@@ -1092,8 +1166,10 @@
               "official_fixture_field",
               "preflight",
               "qualified_team",
+              "rag_retrieval",
               "scenario_assumption",
               "source_availability",
+              "source_coverage",
               "source_policy",
               "team_strength_input",
               "tournament_field",
@@ -1153,6 +1229,7 @@
               "CITE-SRC-WIKI-WC26",
               "CITE-SRC-SAMPLE-TEAM-PRIORS",
               "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-EVIDENCE-INDEX",
               "CITE-MODEL-FORECAST-VAR-V1"
             ],
             "source_ids": [
@@ -1160,12 +1237,14 @@
               "SRC-WIKI-WC26",
               "SRC-SAMPLE-TEAM-PRIORS",
               "SRC-SOURCE-REGISTRY",
+              "SRC-EVIDENCE-INDEX",
               "MODEL-FORECAST-VAR-V1"
             ],
             "support_labels": [
               "adapter_status",
               "crosscheck",
               "demo_features",
+              "evidence_index",
               "format",
               "group_membership",
               "model_input",
@@ -1174,8 +1253,10 @@
               "official_fixture_field",
               "preflight",
               "qualified_team",
+              "rag_retrieval",
               "scenario_assumption",
               "source_availability",
+              "source_coverage",
               "source_policy",
               "team_strength_input",
               "tournament_field",
@@ -1193,19 +1274,22 @@
               "CITE-SRC-SAMPLE-TEAM-PRIORS",
               "CITE-SRC-FIFA-WC26",
               "CITE-SRC-WIKI-WC26",
-              "CITE-SRC-SOURCE-REGISTRY"
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-EVIDENCE-INDEX"
             ],
             "source_ids": [
               "MODEL-FORECAST-VAR-V1",
               "SRC-SAMPLE-TEAM-PRIORS",
               "SRC-FIFA-WC26",
               "SRC-WIKI-WC26",
-              "SRC-SOURCE-REGISTRY"
+              "SRC-SOURCE-REGISTRY",
+              "SRC-EVIDENCE-INDEX"
             ],
             "support_labels": [
               "adapter_status",
               "crosscheck",
               "demo_features",
+              "evidence_index",
               "format",
               "group_membership",
               "model_input",
@@ -1214,8 +1298,10 @@
               "official_fixture_field",
               "preflight",
               "qualified_team",
+              "rag_retrieval",
               "scenario_assumption",
               "source_availability",
+              "source_coverage",
               "source_policy",
               "team_strength_input",
               "tournament_field",
@@ -1231,6 +1317,581 @@
         "source_support_precision": 1.0,
         "type_support": {
           "field_fact": 1.0,
+          "uncertainty": 1.0
+        }
+      }
+    },
+    {
+      "id": "FV-011",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "preflight_ok": true,
+      "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": true,
+      "tools_used": [
+        "search_source_cards",
+        "preflight_forecast_context",
+        "source_coverage_report",
+        "verify_claims_against_sources"
+      ],
+      "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration",
+        "source-adapter-governance"
+      ],
+      "answer": "Source coverage report: field/groups are covered by the official snapshot; team priors and sample market baselines are bundled demo inputs; injuries and lineups are adapter slots or curated notes only; rolling forecasts are supported when completed results are supplied. Evidence document counts by source include {'SRC-API-FOOTBALL': 1, 'SRC-CLUB-ELO': 1, 'SRC-CURATED-EVIDENCE': 4, 'SRC-EVIDENCE-INDEX': 1, 'SRC-FIFA-RANKINGS': 1, 'SRC-FIFA-WC26': 1, 'SRC-FOOTBALL-DATA-ORG': 1, 'SRC-SAMPLE-MARKET-ODDS': 8, 'SRC-SAMPLE-TEAM-PRIORS': 49, 'SRC-SPORT-MYSTIC-REFERENCE': 1, 'SRC-STATSBOMB-HISTORICAL-WC': 1, 'SRC-WIKI-WC26': 1}.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The source coverage report separates official field data, demo team priors, demo market baselines, adapter slots, curated notes, and rolling-state support.",
+            "claim_type": "source_coverage",
+            "citation_ids": [
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-EVIDENCE-INDEX",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-SRC-SAMPLE-MARKET-ODDS",
+              "CITE-SRC-CURATED-EVIDENCE"
+            ],
+            "source_ids": [
+              "SRC-SOURCE-REGISTRY",
+              "SRC-EVIDENCE-INDEX",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "SRC-SAMPLE-MARKET-ODDS",
+              "SRC-CURATED-EVIDENCE"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "curated_context",
+              "demo_features",
+              "evaluation",
+              "evidence_index",
+              "market_baseline",
+              "model_input",
+              "preflight",
+              "rag_retrieval",
+              "rolling_state",
+              "source_availability",
+              "source_coverage",
+              "source_policy",
+              "team_strength_input",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "Live injury, lineup, and odds sources are disabled unless explicitly refreshed with permitted access.",
+            "claim_type": "source_policy",
+            "citation_ids": [
+              "CITE-SRC-SOURCE-REGISTRY",
+              "CITE-SRC-EVIDENCE-INDEX",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-SRC-SAMPLE-MARKET-ODDS",
+              "CITE-SRC-CURATED-EVIDENCE"
+            ],
+            "source_ids": [
+              "SRC-SOURCE-REGISTRY",
+              "SRC-EVIDENCE-INDEX",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "SRC-SAMPLE-MARKET-ODDS",
+              "SRC-CURATED-EVIDENCE"
+            ],
+            "support_labels": [
+              "adapter_status",
+              "curated_context",
+              "demo_features",
+              "evaluation",
+              "evidence_index",
+              "market_baseline",
+              "model_input",
+              "preflight",
+              "rag_retrieval",
+              "rolling_state",
+              "source_availability",
+              "source_coverage",
+              "source_policy",
+              "team_strength_input",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_FACT",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 2,
+        "supported_count": 2,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "source_coverage": 1.0,
+          "source_policy": 1.0
+        }
+      }
+    },
+    {
+      "id": "FV-012",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "preflight_ok": true,
+      "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": true,
+      "tools_used": [
+        "search_source_cards",
+        "preflight_forecast_context",
+        "forecast_match_with_context",
+        "extract_market_baseline",
+        "search_evidence_index",
+        "verify_claims_against_sources"
+      ],
+      "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration",
+        "source-adapter-governance"
+      ],
+      "answer": "For USA vs Australia, the model says USA 50.9%, draw 21.0%, Australia 28.1%. The sample de-vig market baseline says USA 52.2%, draw 26.0%, Australia 21.8%, with bookmaker margin 5.3%. This is a comparison baseline, not betting advice.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The USA vs Australia model probabilities are model-derived outputs from Forecast VAR demo priors.",
+            "claim_type": "model_output",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-SAMPLE-MARKET-ODDS",
+              "CITE-SRC-CURATED-EVIDENCE",
+              "CITE-SRC-EVIDENCE-INDEX"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26",
+              "SRC-SAMPLE-MARKET-ODDS",
+              "SRC-CURATED-EVIDENCE",
+              "SRC-EVIDENCE-INDEX"
+            ],
+            "support_labels": [
+              "curated_context",
+              "demo_features",
+              "evaluation",
+              "evidence_index",
+              "format",
+              "group_membership",
+              "market_baseline",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "rag_retrieval",
+              "rolling_state",
+              "scenario_assumption",
+              "source_coverage",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "The sample market baseline is de-vigged from bundled illustrative odds and is not betting advice.",
+            "claim_type": "market_baseline",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-SAMPLE-MARKET-ODDS",
+              "CITE-SRC-CURATED-EVIDENCE",
+              "CITE-SRC-EVIDENCE-INDEX"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26",
+              "SRC-SAMPLE-MARKET-ODDS",
+              "SRC-CURATED-EVIDENCE",
+              "SRC-EVIDENCE-INDEX"
+            ],
+            "support_labels": [
+              "curated_context",
+              "demo_features",
+              "evaluation",
+              "evidence_index",
+              "format",
+              "group_membership",
+              "market_baseline",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "rag_retrieval",
+              "rolling_state",
+              "scenario_assumption",
+              "source_coverage",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "Live lineups and injury feeds are not bundled by default, so they remain data gaps.",
+            "claim_type": "source_coverage",
+            "citation_ids": [
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-V1",
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-SAMPLE-MARKET-ODDS",
+              "CITE-SRC-CURATED-EVIDENCE",
+              "CITE-SRC-EVIDENCE-INDEX"
+            ],
+            "source_ids": [
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-V1",
+              "SRC-FIFA-WC26",
+              "SRC-SAMPLE-MARKET-ODDS",
+              "SRC-CURATED-EVIDENCE",
+              "SRC-EVIDENCE-INDEX"
+            ],
+            "support_labels": [
+              "curated_context",
+              "demo_features",
+              "evaluation",
+              "evidence_index",
+              "format",
+              "group_membership",
+              "market_baseline",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "rag_retrieval",
+              "rolling_state",
+              "scenario_assumption",
+              "source_coverage",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 3,
+        "supported_count": 3,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "model_output": 1.0,
+          "market_baseline": 1.0,
+          "source_coverage": 1.0
+        }
+      }
+    },
+    {
+      "id": "FV-013",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "preflight_ok": true,
+      "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": true,
+      "tools_used": [
+        "search_source_cards",
+        "preflight_forecast_context",
+        "simulate_tournament",
+        "verify_claims_against_sources"
+      ],
+      "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
+        "forecast-modeling",
+        "uncertainty-calibration",
+        "monte-carlo-forecasting"
+      ],
+      "answer": "The Monte Carlo demo ran 500 simulations. Top champion probabilities are Argentina 21.0%, France 14.2%, Spain 14.0%, England 12.0%, Portugal 8.4%. The simulator approximates a seeded 32-team knockout and should be treated as an educational model, not a certainty.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The Monte Carlo champion probabilities are simulation outputs from the educational Forecast VAR simulator.",
+            "claim_type": "simulation_output",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-MC-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-MC-V1"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "monte_carlo",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "rolling_state",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "The knockout bracket is approximate and not an official FIFA path simulation.",
+            "claim_type": "uncertainty",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS",
+              "CITE-MODEL-FORECAST-VAR-MC-V1"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-SAMPLE-TEAM-PRIORS",
+              "MODEL-FORECAST-VAR-MC-V1"
+            ],
+            "support_labels": [
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "monte_carlo",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "rolling_state",
+              "scenario_assumption",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 2,
+        "supported_count": 2,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "simulation_output": 1.0,
+          "uncertainty": 1.0
+        }
+      }
+    },
+    {
+      "id": "FV-014",
+      "passed": true,
+      "tool_ok": true,
+      "skill_ok": true,
+      "expected_ok": true,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "preflight_ok": true,
+      "citation_recall": 1.0,
+      "source_support_precision": 1.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": true,
+      "tools_used": [
+        "search_source_cards",
+        "preflight_forecast_context",
+        "rolling_group_forecast",
+        "verify_claims_against_sources"
+      ],
+      "skills_used": [
+        "forecast-preflight",
+        "citation-discipline",
+        "source-triage",
+        "forecast-modeling",
+        "uncertainty-calibration",
+        "scenario-analysis",
+        "monte-carlo-forecasting"
+      ],
+      "answer": "Rolling Group D forecast after locking the illustrative result USA 2-1 Australia: USA is the group-winner favourite at 68.4%. Completed results are user-supplied demo state, while remaining fixtures still use demo priors.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The rolling forecast locks the supplied completed result before simulating remaining Group D fixtures.",
+            "claim_type": "rolling_state",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-CURATED-EVIDENCE",
+              "CITE-MODEL-FORECAST-VAR-MC-V1",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-CURATED-EVIDENCE",
+              "MODEL-FORECAST-VAR-MC-V1",
+              "SRC-SAMPLE-TEAM-PRIORS"
+            ],
+            "support_labels": [
+              "curated_context",
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "monte_carlo",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "rolling_state",
+              "scenario_assumption",
+              "source_coverage",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "USA is the rolling Group D winner favourite at 68.4% in the demo simulation.",
+            "claim_type": "simulation_output",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-CURATED-EVIDENCE",
+              "CITE-MODEL-FORECAST-VAR-MC-V1",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-CURATED-EVIDENCE",
+              "MODEL-FORECAST-VAR-MC-V1",
+              "SRC-SAMPLE-TEAM-PRIORS"
+            ],
+            "support_labels": [
+              "curated_context",
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "monte_carlo",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "rolling_state",
+              "scenario_assumption",
+              "source_coverage",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          },
+          {
+            "claim": "Remaining fixtures still use demo priors unless source adapters are refreshed.",
+            "claim_type": "uncertainty",
+            "citation_ids": [
+              "CITE-SRC-FIFA-WC26",
+              "CITE-SRC-CURATED-EVIDENCE",
+              "CITE-MODEL-FORECAST-VAR-MC-V1",
+              "CITE-SRC-SAMPLE-TEAM-PRIORS"
+            ],
+            "source_ids": [
+              "SRC-FIFA-WC26",
+              "SRC-CURATED-EVIDENCE",
+              "MODEL-FORECAST-VAR-MC-V1",
+              "SRC-SAMPLE-TEAM-PRIORS"
+            ],
+            "support_labels": [
+              "curated_context",
+              "demo_features",
+              "format",
+              "group_membership",
+              "model_input",
+              "model_logic",
+              "model_output",
+              "monte_carlo",
+              "official_fixture_field",
+              "preflight",
+              "qualified_team",
+              "rolling_state",
+              "scenario_assumption",
+              "source_coverage",
+              "source_policy",
+              "team_strength_input",
+              "tournament_field",
+              "uncertainty"
+            ],
+            "support_class": "SUPPORTED_MODEL_DERIVED",
+            "supported": true,
+            "reason": "At least one cited source has support labels required for this claim type."
+          }
+        ],
+        "claim_count": 3,
+        "supported_count": 3,
+        "source_support_precision": 1.0,
+        "type_support": {
+          "rolling_state": 1.0,
+          "simulation_output": 1.0,
           "uncertainty": 1.0
         }
       }

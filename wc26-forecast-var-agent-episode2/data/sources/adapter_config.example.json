@@ -1,0 +1,19 @@
+{
+  "api_football": {
+    "enabled": false,
+    "env_var": "API_FOOTBALL_KEY",
+    "league_id": 1,
+    "season": 2026,
+    "notes": "Enable only when API terms and rate limits permit. This project runs fully offline by default."
+  },
+  "football_data_org": {
+    "enabled": false,
+    "env_var": "FOOTBALL_DATA_API_TOKEN",
+    "competition": "WC",
+    "season": 2026
+  },
+  "market_odds": {
+    "enabled": false,
+    "notes": "Use licensed market data only. The bundled CSV is illustrative demo data."
+  }
+}

@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 from pathlib import Path
 
+from .config import DEFAULT_OPENAI_MODEL
 from .schemas import AgentAnswer
 from .skills import build_skill_context, select_skills
 from .tools import verify_claims_against_sources
@@ -16,22 +17,25 @@ Mission: answer 2026 FIFA World Cup forecasting questions using MCP tools, expli
 
 Rules:
 1. Call search_source_cards to retrieve the local source cards relevant to the question.
-2. Call preflight_forecast_context before any match, group, ranking, or scenario forecast.
+2. Call preflight_forecast_context before any match, group, ranking, market, Monte Carlo, rolling, or scenario forecast.
 3. Use MCP forecasting tools for model outputs; never invent probabilities.
 4. Cite every factual, source-policy, model-input, model-output, scenario, and uncertainty claim with citation ids returned by tools.
 5. Report probabilities, not deterministic winners.
 6. If asked for a guarantee or certainty about future matches, abstain from the guarantee and explain uncertainty.
 7. Refuse to forecast a team outside the validated 48-team field.
 8. Distinguish bundled demo priors from live/refreshed sources.
-9. Do not provide betting advice.
-10. Return strictly as the AgentAnswer schema.
+9. When discussing market odds, use extract_market_baseline or forecast_match_with_context and explicitly say it is not betting advice.
+10. When discussing source coverage, call source_coverage_report.
+11. When simulating title/champion outcomes, call simulate_tournament.
+12. When using completed results, call rolling_group_forecast and describe locked results.
+13. Return strictly as the AgentAnswer schema.
 
 Selected agent skills:
 {skill_context}
 """.strip()
 
 
-async def run_openai_agent(question: str, model: str = "gpt-4.1-mini") -> AgentAnswer:
+async def run_openai_agent(question: str, model: str = DEFAULT_OPENAI_MODEL) -> AgentAnswer:
     """Run the live OpenAI Agents SDK + MCP implementation.
 
     Requirements:
@@ -64,6 +68,13 @@ async def run_openai_agent(question: str, model: str = "gpt-4.1-mini") -> AgentA
         "rank_teams",
         "explain_model",
         "verify_claims_against_sources",
+        "refresh_evidence_index",
+        "search_evidence_index",
+        "source_coverage_report",
+        "extract_market_baseline",
+        "forecast_match_with_context",
+        "simulate_tournament",
+        "rolling_group_forecast",
     ]
 
     async with MCPServerStdio(
@@ -91,5 +102,5 @@ async def run_openai_agent(question: str, model: str = "gpt-4.1-mini") -> AgentA
         return answer
 
 
-def run_openai_agent_sync(question: str, model: str = "gpt-4.1-mini") -> AgentAnswer:
+def run_openai_agent_sync(question: str, model: str = DEFAULT_OPENAI_MODEL) -> AgentAnswer:
     return asyncio.run(run_openai_agent(question, model=model))

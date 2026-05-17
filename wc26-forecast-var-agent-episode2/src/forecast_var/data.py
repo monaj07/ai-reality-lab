@@ -158,3 +158,48 @@ def source_support_labels(source_ids: list[str]) -> set[str]:
     for sid in source_ids:
         labels.update(cards.get(sid, {}).get("supports", []))
     return labels
+
+
+def load_market_odds() -> list[dict[str, Any]]:
+    """Load bundled sample odds used only for de-vig baseline demos."""
+    path = PROJECT_ROOT / "data/sources/sample_market_odds.csv"
+    if not path.exists():
+        return []
+    rows: list[dict[str, Any]] = []
+    with open(path, encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            rec: dict[str, Any] = dict(row)
+            # Accept both the current avg_* schema and an older decimal_* schema
+            # so notebooks remain compatible with previous generated artifacts.
+            rec["avg_odds_team_a"] = float(rec.get("avg_odds_team_a") or rec.get("decimal_odds_a"))
+            rec["avg_odds_draw"] = float(rec.get("avg_odds_draw") or rec.get("decimal_odds_draw"))
+            rec["avg_odds_team_b"] = float(rec.get("avg_odds_team_b") or rec.get("decimal_odds_b"))
+            rec["as_of_utc"] = rec.get("as_of_utc") or rec.get("timestamp_utc") or "unknown"
+            rows.append(rec)
+    return rows
+
+
+def search_evidence_index(query: str, k: int = 8) -> list[dict[str, Any]]:
+    """Search the generated evidence index with transparent token overlap.
+
+    This complements `search_source_cards`: source cards explain the source
+    policy, while the evidence index includes team profiles, market snapshots,
+    and curated notes.
+    """
+    from .source_adapters import load_evidence_index
+
+    q_tokens = tokenise(query)
+    scored: list[tuple[float, dict[str, Any]]] = []
+    for doc in load_evidence_index():
+        text = " ".join(str(doc.get(x, "")) for x in ["id", "title", "text", "source_id", "doc_type"])
+        text += " " + " ".join(doc.get("supports", []))
+        tokens = tokenise(text)
+        overlap = len(q_tokens & tokens)
+        score = overlap / max(len(q_tokens), 1)
+        if score > 0:
+            item = dict(doc)
+            item["score"] = round(score, 4)
+            item["citation"] = citation(doc.get("source_id", "SRC-EVIDENCE-INDEX"))
+            scored.append((score, item))
+    scored.sort(key=lambda x: (-x[0], x[1].get("id", "")))
+    return [item for _, item in scored[:k]]

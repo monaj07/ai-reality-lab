@@ -9,8 +9,8 @@ from .tools import verify_claims_against_sources
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
-FACTUAL_TYPES = {"field_fact", "source_policy", "model_input", "guardrail"}
-PREDICTION_TYPES = {"model_output", "scenario_assumption", "uncertainty"}
+FACTUAL_TYPES = {"field_fact", "source_policy", "model_input", "guardrail", "source_coverage", "evidence_retrieval", "market_baseline", "rolling_state"}
+PREDICTION_TYPES = {"model_output", "scenario_assumption", "uncertainty", "simulation_output"}
 
 
 def load_cases(path: Path | None = None) -> list[dict]:

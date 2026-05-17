@@ -11,6 +11,11 @@ ClaimType = Literal[
     "scenario_assumption",
     "uncertainty",
     "guardrail",
+    "market_baseline",
+    "source_coverage",
+    "evidence_retrieval",
+    "simulation_output",
+    "rolling_state",
     "general",
 ]
 

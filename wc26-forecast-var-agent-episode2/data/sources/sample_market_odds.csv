@@ -1,0 +1,8 @@
+match_id,team_a,team_b,avg_odds_team_a,avg_odds_draw,avg_odds_team_b,as_of_utc,source_id,notes
+G-D-USA-AUS,USA,Australia,1.82,3.65,4.35,2026-05-16T00:00:00Z,SRC-SAMPLE-MARKET-ODDS,Illustrative de-vig demo odds; not real betting advice.
+G-D-USA-PAR,USA,Paraguay,1.95,3.55,3.85,2026-05-16T00:00:00Z,SRC-SAMPLE-MARKET-ODDS,Illustrative de-vig demo odds; not real betting advice.
+G-D-AUS-PAR,Australia,Paraguay,2.55,3.25,2.82,2026-05-16T00:00:00Z,SRC-SAMPLE-MARKET-ODDS,Illustrative de-vig demo odds; not real betting advice.
+G-D-TUR-AUS,Türkiye,Australia,2.00,3.45,3.75,2026-05-16T00:00:00Z,SRC-SAMPLE-MARKET-ODDS,Illustrative de-vig demo odds; not real betting advice.
+G-C-BRA-HAI,Brazil,Haiti,1.12,7.75,19.00,2026-05-16T00:00:00Z,SRC-SAMPLE-MARKET-ODDS,Illustrative de-vig demo odds; not real betting advice.
+G-I-FRA-NOR,France,Norway,1.68,3.90,5.10,2026-05-16T00:00:00Z,SRC-SAMPLE-MARKET-ODDS,Illustrative de-vig demo odds; not real betting advice.
+G-J-ARG-AUT,Argentina,Austria,1.62,4.05,5.40,2026-05-16T00:00:00Z,SRC-SAMPLE-MARKET-ODDS,Illustrative de-vig demo odds; not real betting advice.

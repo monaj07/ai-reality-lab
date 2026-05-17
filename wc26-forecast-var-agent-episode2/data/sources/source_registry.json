@@ -145,5 +145,135 @@
       "team rankings"
     ],
     "license_note": "Educational model; not betting, financial, or deterministic advice."
+  },
+  {
+    "id": "SRC-SPORT-MYSTIC-REFERENCE",
+    "name": "sport_mystic_ai reference repository",
+    "category": "reference_architecture",
+    "status": "reference_only",
+    "url": "https://github.com/monaj07/sport_mystic_ai",
+    "fields": [
+      "source adapters",
+      "RAG evidence index",
+      "rolling forecast",
+      "Brier/log-loss scoring"
+    ],
+    "license_note": "Used as a design reference only. No source code copied because the repository page did not expose a license file in the inspected listing."
+  },
+  {
+    "id": "SRC-API-FOOTBALL",
+    "name": "API-Football / API-Sports adapter slot",
+    "category": "live_fixture_availability_odds",
+    "status": "adapter_placeholder_requires_key",
+    "url": "https://www.api-football.com/",
+    "fields": [
+      "fixtures",
+      "injuries",
+      "lineups",
+      "odds",
+      "events",
+      "standings"
+    ],
+    "license_note": "Use only with an API key and according to API-Football terms. This project does not call it by default."
+  },
+  {
+    "id": "SRC-FOOTBALL-DATA-ORG",
+    "name": "football-data.org adapter slot",
+    "category": "structured_competition_data",
+    "status": "adapter_placeholder_requires_key",
+    "url": "https://www.football-data.org/documentation/api",
+    "fields": [
+      "competitions",
+      "matches",
+      "teams",
+      "squads",
+      "standings"
+    ],
+    "license_note": "Use only with a token and under the service plan/terms. World Cup coverage may vary by plan/date."
+  },
+  {
+    "id": "SRC-THE-SPORTS-DB",
+    "name": "TheSportsDB fallback adapter slot",
+    "category": "fallback_events_lineups",
+    "status": "fallback_adapter_placeholder",
+    "url": "https://www.thesportsdb.com/documentation",
+    "fields": [
+      "events",
+      "lineups",
+      "timelines",
+      "teams"
+    ],
+    "license_note": "Fallback/cross-check source. Verify coverage and terms before using public outputs."
+  },
+  {
+    "id": "SRC-STATSBOMB-HISTORICAL-WC",
+    "name": "StatsBomb Open Data historical World Cup adapter slot",
+    "category": "historical_calibration",
+    "status": "adapter_placeholder_public_research",
+    "url": "https://github.com/statsbomb/open-data",
+    "fields": [
+      "historical events",
+      "shots",
+      "passes",
+      "match metadata"
+    ],
+    "license_note": "Use for research/calibration and follow StatsBomb attribution requirements. Not a current 2026 team-strength source."
+  },
+  {
+    "id": "SRC-CURATED-EVIDENCE",
+    "name": "Manually curated high-signal evidence",
+    "category": "manual_context",
+    "status": "bundled_and_refreshable",
+    "url": "file://data/sources/curated_evidence.jsonl",
+    "fields": [
+      "injury notes",
+      "suspension notes",
+      "tactical notes",
+      "source policies",
+      "rolling forecast assumptions"
+    ],
+    "license_note": "Human-maintained notes. Every entry needs timestamp, source attribution, and review before publication."
+  },
+  {
+    "id": "SRC-SAMPLE-MARKET-ODDS",
+    "name": "Bundled sample market odds",
+    "category": "external_consensus_demo",
+    "status": "bundled_demo_only_disabled_for_advice",
+    "url": "file://data/sources/sample_market_odds.csv",
+    "fields": [
+      "average 1X2 odds",
+      "timestamp",
+      "bookmaker margin",
+      "de-vig baseline probabilities"
+    ],
+    "license_note": "Illustrative demo data only. Not betting advice and not a real live odds feed."
+  },
+  {
+    "id": "SRC-EVIDENCE-INDEX",
+    "name": "Forecast VAR generated evidence index",
+    "category": "rag_evidence_index",
+    "status": "generated_local",
+    "url": "file://data/generated/evidence_index.jsonl",
+    "fields": [
+      "source cards",
+      "team feature docs",
+      "market baseline docs",
+      "curated docs"
+    ],
+    "license_note": "Generated from bundled local files. Rebuild after refreshing sources."
+  },
+  {
+    "id": "MODEL-FORECAST-VAR-MC-V1",
+    "name": "Forecast VAR Monte Carlo tournament simulator",
+    "category": "model",
+    "status": "bundled_demo_model",
+    "url": "file://src/forecast_var/tournament_sim.py",
+    "fields": [
+      "group advancement",
+      "round-of-32 progression",
+      "champion probability",
+      "rolling state"
+    ],
+    "license_note": "Educational Monte Carlo approximation; not an official bracket predictor or betting tool."
   }
 ]

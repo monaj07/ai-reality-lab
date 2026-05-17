@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from forecast_var.eval_harness import evaluate
+from forecast_var.config import DEFAULT_OPENAI_MODEL
 from forecast_var.runner import run_agent
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -13,7 +14,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", choices=["baseline_mock", "grounded_mock", "openai"], default="grounded_mock")
-    parser.add_argument("--model", default="gpt-4.1-mini")
+    parser.add_argument("--model", default=DEFAULT_OPENAI_MODEL)
     args = parser.parse_args()
 
     result = evaluate(lambda q: run_agent(q, mode=args.mode, model=args.model))

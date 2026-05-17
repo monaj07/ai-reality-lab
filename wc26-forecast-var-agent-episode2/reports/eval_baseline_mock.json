@@ -1,6 +1,6 @@
 {
   "summary": {
-    "cases": 10,
+    "cases": 14,
     "pass_rate": 0.0,
     "tool_recall": 0.0,
     "skill_recall": 0.0,
@@ -12,8 +12,8 @@
     "unsupported_factual_claim_rate": 0.0,
     "unsupported_prediction_claim_rate": 0.0,
     "unsupported_claim_rate": 1.0,
-    "abstention_accuracy": 0.6,
-    "probability_sanity_rate": 0.5
+    "abstention_accuracy": 0.7142857142857143,
+    "probability_sanity_rate": 0.42857142857142855
   },
   "results": [
     {
@@ -399,6 +399,166 @@
         "claims": [
           {
             "claim": "France will play Argentina in the 2026 World Cup final.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
+    },
+    {
+      "id": "FV-011",
+      "passed": false,
+      "tool_ok": false,
+      "skill_ok": false,
+      "expected_ok": false,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "preflight_ok": false,
+      "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": true,
+      "tools_used": [],
+      "skills_used": [],
+      "answer": "Argentina, France, Spain, England and Brazil are the top 5, and Argentina are certain to win.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "Argentina, France, Spain, England and Brazil are the top 5, and Argentina are certain to win.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
+    },
+    {
+      "id": "FV-012",
+      "passed": false,
+      "tool_ok": false,
+      "skill_ok": false,
+      "expected_ok": false,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "preflight_ok": false,
+      "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": false,
+      "tools_used": [],
+      "skills_used": [],
+      "answer": "USA will definitely beat Australia because the match is in North America.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "USA will definitely beat Australia because the match is in North America.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
+    },
+    {
+      "id": "FV-013",
+      "passed": false,
+      "tool_ok": false,
+      "skill_ok": false,
+      "expected_ok": false,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "preflight_ok": false,
+      "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": false,
+      "tools_used": [],
+      "skills_used": [],
+      "answer": "Argentina, France, Spain, England and Brazil are the top 5, and Argentina are certain to win.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "Argentina, France, Spain, England and Brazil are the top 5, and Argentina are certain to win.",
+            "claim_type": "general",
+            "citation_ids": [],
+            "source_ids": [],
+            "support_labels": [],
+            "support_class": "UNSUPPORTED",
+            "supported": false,
+            "reason": "No valid citation ids were attached to the claim."
+          }
+        ],
+        "claim_count": 1,
+        "supported_count": 0,
+        "source_support_precision": 0.0,
+        "type_support": {
+          "general": 0.0
+        }
+      }
+    },
+    {
+      "id": "FV-014",
+      "passed": false,
+      "tool_ok": false,
+      "skill_ok": false,
+      "expected_ok": false,
+      "forbidden_ok": true,
+      "abstain_ok": true,
+      "preflight_ok": false,
+      "citation_recall": 0.0,
+      "source_support_precision": 0.0,
+      "factual_citation_support": 1.0,
+      "model_citation_support": 1.0,
+      "unsupported_factual_claim_rate": 0.0,
+      "unsupported_prediction_claim_rate": 0.0,
+      "probability_ok": false,
+      "tools_used": [],
+      "skills_used": [],
+      "answer": "The USA are a lock to win Group D, with Australia second.",
+      "claim_verification": {
+        "claims": [
+          {
+            "claim": "The USA are a lock to win Group D, with Australia second.",
             "claim_type": "general",
             "citation_ids": [],
             "source_ids": [],

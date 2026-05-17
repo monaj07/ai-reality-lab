@@ -78,5 +78,49 @@ def verify_claims_against_sources(claims: list[dict]) -> dict:
     return tools.verify_claims_against_sources(claims)
 
 
+# Source-aware Forecast VAR upgrades. These tools are deliberately read-only
+# except for refresh_evidence_index, which writes a local generated JSONL index.
+
+@mcp.tool()
+def refresh_evidence_index(include_live_api: bool = False) -> dict:
+    """Rebuild the local evidence index from bundled adapters; live API is opt-in."""
+    return tools.refresh_evidence_index(include_live_api=include_live_api)
+
+
+@mcp.tool()
+def search_evidence_index(query: str, k: int = 8) -> dict:
+    """Search the generated evidence index across source cards, team profiles, market rows, and curated notes."""
+    return tools.search_evidence_index(query, k=k)
+
+
+@mcp.tool()
+def source_coverage_report() -> dict:
+    """Return coverage status for official, demo, adapter, curated, and market sources."""
+    return tools.source_coverage_report()
+
+
+@mcp.tool()
+def extract_market_baseline(team_a: str, team_b: str) -> dict:
+    """Return de-vig sample market probabilities for a matchup when bundled demo odds exist."""
+    return tools.extract_market_baseline(team_a, team_b)
+
+
+@mcp.tool()
+def forecast_match_with_context(team_a: str, team_b: str) -> dict:
+    """Forecast a match with team features, evidence retrieval, sample market comparison, and data gaps."""
+    return tools.forecast_match_with_context(team_a, team_b)
+
+
+@mcp.tool()
+def simulate_tournament(sims: int = 3000, seed: int = 2026, limit: int = 12) -> dict:
+    """Run the approximate whole-tournament Monte Carlo simulator."""
+    return tools.simulate_tournament(sims=sims, seed=seed, limit=limit)
+
+
+@mcp.tool()
+def rolling_group_forecast(group: str, completed_results: list[dict], sims: int = 5000) -> dict:
+    """Forecast a group after locking user-supplied completed match results."""
+    return tools.rolling_group_forecast(group, completed_results=completed_results, sims=sims)
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")
