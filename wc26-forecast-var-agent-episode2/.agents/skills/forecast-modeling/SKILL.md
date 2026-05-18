@@ -1,3 +1,8 @@
+---
+name: forecast-modeling
+description: use deterministic forecast tools instead of free-form guessing for match, group, ranking, market, or tournament probabilities.
+---
+
 # Skill: forecast-modeling
 
 ## Purpose

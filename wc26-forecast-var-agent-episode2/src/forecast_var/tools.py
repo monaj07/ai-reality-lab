@@ -115,7 +115,7 @@ def get_source_registry() -> dict[str, Any]:
         "active_or_bundled": [s for s in registry if s["status"] in {"bundled_and_refreshable", "bundled_crosscheck", "bundled_demo_only", "bundled_demo_model"}],
         "adapter_placeholders": [s for s in registry if "placeholder" in s["status"]],
         "disabled_by_default": [s for s in registry if s["status"] == "disabled_optional"],
-        "citations": [citation("SRC-SOURCE-REGISTRY"), citation("SRC-FIFA-WC26"), citation("SRC-FIFA-RANKINGS"), citation("SRC-CLUB-ELO"), citation("SRC-API-FOOTBALL"), citation("SRC-FOOTBALL-DATA-ORG"), citation("SRC-CURATED-EVIDENCE"), citation("SRC-SAMPLE-MARKET-ODDS"), citation("SRC-SPORT-MYSTIC-REFERENCE")],
+        "citations": [citation("SRC-SOURCE-REGISTRY"), citation("SRC-FIFA-WC26"), citation("SRC-FIFA-RANKINGS"), citation("SRC-CLUB-ELO"), citation("SRC-API-FOOTBALL"), citation("SRC-FOOTBALL-DATA-ORG"), citation("SRC-CURATED-EVIDENCE"), citation("SRC-SAMPLE-MARKET-ODDS")],
     }
 
 

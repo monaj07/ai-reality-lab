@@ -7,8 +7,8 @@ auditable pattern that can grow from bundled demo files to live football data:
 
 source adapter -> evidence documents -> local JSONL index -> MCP retrieval tools.
 
-The design is inspired by the source-index pattern in sport_mystic_ai, but this
-module is original code and intentionally stays dependency-light for teaching.
+The module intentionally stays dependency-light for teaching and keeps the
+episode self-contained.
 """
 
 import csv

@@ -1,3 +1,8 @@
+---
+name: uncertainty-calibration
+description: prevent overconfident sports forecasts by using calibrated language, uncertainty warnings, refusals, and sensible probability precision.
+---
+
 # Skill: uncertainty-calibration
 
 ## Purpose

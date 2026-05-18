@@ -1,6 +1,6 @@
 # Source adapters and evidence index
 
-Forecast VAR now uses a small source-ingestion layer inspired by the source-index pattern in `sport_mystic_ai`, while keeping the codebase original and simple.
+Forecast VAR uses a small source-ingestion layer that keeps the episode stand-alone, auditable, and simple.
 
 ## Design
 

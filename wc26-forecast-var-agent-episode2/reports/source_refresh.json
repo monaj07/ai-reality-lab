@@ -1,9 +1,9 @@
 {
   "refresh": {
     "output_path": "data/generated/evidence_index.jsonl",
-    "document_count": 74,
+    "document_count": 73,
     "adapter_counts": {
-      "source_cards": 16,
+      "source_cards": 15,
       "team_features": 48,
       "sample_market_odds": 7,
       "curated_evidence": 3
@@ -43,7 +43,6 @@
       "disabled_optional": 1,
       "bundled_demo_only": 1,
       "bundled_demo_model": 2,
-      "reference_only": 1,
       "adapter_placeholder_requires_key": 2,
       "fallback_adapter_placeholder": 1,
       "adapter_placeholder_public_research": 1,
@@ -60,7 +59,6 @@
       "SRC-FOOTBALL-DATA-ORG": 1,
       "SRC-SAMPLE-MARKET-ODDS": 8,
       "SRC-SAMPLE-TEAM-PRIORS": 49,
-      "SRC-SPORT-MYSTIC-REFERENCE": 1,
       "SRC-STATSBOMB-HISTORICAL-WC": 1,
       "SRC-WIKI-WC26": 1
     },

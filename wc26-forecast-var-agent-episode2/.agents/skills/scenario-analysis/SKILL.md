@@ -1,3 +1,8 @@
+---
+name: scenario-analysis
+description: handle user-provided what-if assumptions such as injuries, suspensions, squad changes, or rating shocks with explicit caveats.
+---
+
 # Skill: scenario-analysis
 
 ## Purpose

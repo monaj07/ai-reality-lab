@@ -1,3 +1,8 @@
+---
+name: source-triage
+description: select and disclose bundled, live, disabled, missing, or licensed football data sources before forecasting.
+---
+
 # Skill: source-triage
 
 ## Purpose

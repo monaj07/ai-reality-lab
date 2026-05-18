@@ -18,11 +18,15 @@ plain Python logic over validated tournament data and model inputs.
 
 A freehand LLM prediction can sound confident but is hard to audit. A tool-generated prediction can be:
 
-- reproduced with the same seed,
+- reproduced with the same code, inputs, parameters, and simulator seed,
 - inspected in `src/forecast_var/tournament_sim.py`,
 - compared against market baselines,
 - checked for data gaps,
 - evaluated for overclaiming.
+
+This does not mean the live LLM API is bit-for-bit deterministic. Even with low temperature or seed controls, a hosted model can return slightly different wording, tool ordering, or reasoning traces across runs. Forecast VAR treats the LLM as the orchestrator and narrator, not as the source of the numeric prediction.
+
+The reproducible part is the tool boundary: if `simulate_tournament` is called with the same bundled data, code version, simulation count, and seed, the Monte Carlo output should be the same. The auditable part is the recorded path around it: retrieved source cards, tool inputs, tool outputs, citations, typed claims, warnings, and claim-verification results. In the offline notebook, the deterministic mock agent makes the whole demo repeatable without live API calls.
 
 ## What Monte Carlo means here
 
@@ -69,6 +73,25 @@ The model should not:
 - present sample odds as betting advice,
 - skip pre-flight validation,
 - cite unsupported claims.
+
+## What reproducibility means here
+
+Forecast VAR uses "reproducible" in a narrow engineering sense:
+
+```text
+Reproducible:
+- local RAG index build from bundled files
+- source-card retrieval over that index
+- Python forecast and Monte Carlo outputs when seeded
+- evaluation metrics from deterministic mock agents
+
+Not guaranteed bit-for-bit reproducible:
+- live LLM wording
+- live LLM intermediate reasoning
+- exact live API orchestration if the hosted model changes
+```
+
+So the tool does not make the LLM itself deterministic. It makes the prediction-producing part deterministic and leaves an audit trail for the LLM-produced explanation.
 
 ## Episode teaching line
 

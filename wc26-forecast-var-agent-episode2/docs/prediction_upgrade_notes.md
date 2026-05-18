@@ -1,6 +1,6 @@
 # Prediction-source upgrade notes
 
-This upgrade borrows ideas from `sport_mystic_ai` at the architecture level:
+This upgrade keeps Forecast VAR self-contained while adding source-aware forecasting patterns:
 
 - local evidence index,
 - source adapters,
@@ -13,7 +13,7 @@ Forecast VAR keeps a different objective: it is an agent-engineering episode foc
 
 ## What should improve prediction quality?
 
-1. **Market baseline**: comparing model probabilities to de-vig odds can reveal when the model is far from external consensus.
+1. **Market baseline**: comparing model probabilities to de-vig odds can reveal when the model is far from a sample external baseline. De-vig means removing bookmaker margin by converting odds into implied probabilities and normalizing the outcomes to sum to 1.
 2. **Rolling state**: completed results are locked, so the agent stops re-predicting what already happened.
 3. **Curated evidence**: high-signal injury/suspension/tactical notes can be manually reviewed and injected.
 4. **Historical calibration**: StatsBomb/OpenFootball-style historical data can help estimate upset/draw priors.

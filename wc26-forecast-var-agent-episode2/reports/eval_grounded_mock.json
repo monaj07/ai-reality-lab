@@ -610,7 +610,7 @@
       "claim_verification": {
         "claims": [
           {
-            "claim": "The source registry separates bundled sources, adapter placeholders, manual or paid feeds, reference-only sources, and disabled optional feeds.",
+            "claim": "The source registry separates bundled sources, adapter placeholders, manual or paid feeds, and disabled optional feeds.",
             "claim_type": "source_policy",
             "citation_ids": [
               "CITE-SRC-SOURCE-REGISTRY",
@@ -620,8 +620,7 @@
               "CITE-SRC-API-FOOTBALL",
               "CITE-SRC-FOOTBALL-DATA-ORG",
               "CITE-SRC-CURATED-EVIDENCE",
-              "CITE-SRC-SAMPLE-MARKET-ODDS",
-              "CITE-SRC-SPORT-MYSTIC-REFERENCE"
+              "CITE-SRC-SAMPLE-MARKET-ODDS"
             ],
             "source_ids": [
               "SRC-SOURCE-REGISTRY",
@@ -631,8 +630,7 @@
               "SRC-API-FOOTBALL",
               "SRC-FOOTBALL-DATA-ORG",
               "SRC-CURATED-EVIDENCE",
-              "SRC-SAMPLE-MARKET-ODDS",
-              "SRC-SPORT-MYSTIC-REFERENCE"
+              "SRC-SAMPLE-MARKET-ODDS"
             ],
             "support_labels": [
               "adapter_status",
@@ -649,7 +647,6 @@
               "player_pool_proxy",
               "qualified_team",
               "rank_source",
-              "reference_architecture",
               "rolling_state",
               "source_availability",
               "source_coverage",
@@ -674,8 +671,7 @@
               "CITE-SRC-API-FOOTBALL",
               "CITE-SRC-FOOTBALL-DATA-ORG",
               "CITE-SRC-CURATED-EVIDENCE",
-              "CITE-SRC-SAMPLE-MARKET-ODDS",
-              "CITE-SRC-SPORT-MYSTIC-REFERENCE"
+              "CITE-SRC-SAMPLE-MARKET-ODDS"
             ],
             "source_ids": [
               "SRC-SOURCE-REGISTRY",
@@ -685,8 +681,7 @@
               "SRC-API-FOOTBALL",
               "SRC-FOOTBALL-DATA-ORG",
               "SRC-CURATED-EVIDENCE",
-              "SRC-SAMPLE-MARKET-ODDS",
-              "SRC-SPORT-MYSTIC-REFERENCE"
+              "SRC-SAMPLE-MARKET-ODDS"
             ],
             "support_labels": [
               "adapter_status",
@@ -703,7 +698,6 @@
               "player_pool_proxy",
               "qualified_team",
               "rank_source",
-              "reference_architecture",
               "rolling_state",
               "source_availability",
               "source_coverage",
@@ -1351,7 +1345,7 @@
         "uncertainty-calibration",
         "source-adapter-governance"
       ],
-      "answer": "Source coverage report: field/groups are covered by the official snapshot; team priors and sample market baselines are bundled demo inputs; injuries and lineups are adapter slots or curated notes only; rolling forecasts are supported when completed results are supplied. Evidence document counts by source include {'SRC-API-FOOTBALL': 1, 'SRC-CLUB-ELO': 1, 'SRC-CURATED-EVIDENCE': 4, 'SRC-EVIDENCE-INDEX': 1, 'SRC-FIFA-RANKINGS': 1, 'SRC-FIFA-WC26': 1, 'SRC-FOOTBALL-DATA-ORG': 1, 'SRC-SAMPLE-MARKET-ODDS': 8, 'SRC-SAMPLE-TEAM-PRIORS': 49, 'SRC-SPORT-MYSTIC-REFERENCE': 1, 'SRC-STATSBOMB-HISTORICAL-WC': 1, 'SRC-WIKI-WC26': 1}.",
+      "answer": "Source coverage report: field/groups are covered by the official snapshot; team priors and sample market baselines are bundled demo inputs; injuries and lineups are adapter slots or curated notes only; rolling forecasts are supported when completed results are supplied. Evidence document counts by source include {'SRC-API-FOOTBALL': 1, 'SRC-CLUB-ELO': 1, 'SRC-CURATED-EVIDENCE': 4, 'SRC-EVIDENCE-INDEX': 1, 'SRC-FIFA-RANKINGS': 1, 'SRC-FIFA-WC26': 1, 'SRC-FOOTBALL-DATA-ORG': 1, 'SRC-SAMPLE-MARKET-ODDS': 8, 'SRC-SAMPLE-TEAM-PRIORS': 49, 'SRC-STATSBOMB-HISTORICAL-WC': 1, 'SRC-WIKI-WC26': 1}.",
       "claim_verification": {
         "claims": [
           {

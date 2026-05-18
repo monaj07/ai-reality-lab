@@ -1,3 +1,8 @@
+---
+name: eval-review
+description: audit forecast agent responses for required tools, selected skills, citations, probabilities, and unsupported certainty claims.
+---
+
 # Skill: eval-review
 
 ## Purpose

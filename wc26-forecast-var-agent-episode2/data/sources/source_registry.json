@@ -147,20 +147,6 @@
     "license_note": "Educational model; not betting, financial, or deterministic advice."
   },
   {
-    "id": "SRC-SPORT-MYSTIC-REFERENCE",
-    "name": "sport_mystic_ai reference repository",
-    "category": "reference_architecture",
-    "status": "reference_only",
-    "url": "https://github.com/monaj07/sport_mystic_ai",
-    "fields": [
-      "source adapters",
-      "RAG evidence index",
-      "rolling forecast",
-      "Brier/log-loss scoring"
-    ],
-    "license_note": "Used as a design reference only. No source code copied because the repository page did not expose a license file in the inspected listing."
-  },
-  {
     "id": "SRC-API-FOOTBALL",
     "name": "API-Football / API-Sports adapter slot",
     "category": "live_fixture_availability_odds",

@@ -27,6 +27,45 @@ def _parse_frontmatter(text: str) -> tuple[dict[str, str], str]:
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SKILLS_ROOT = PROJECT_ROOT / ".agents" / "skills"
 
+INLINE_SKILL_CONTEXT: dict[str, str] = {
+    "forecast-preflight": """---
+name: forecast-preflight
+description: run forecast readiness checks before any prediction, ranking, market comparison, simulation, or scenario answer.
+---
+
+# Skill: forecast-preflight
+
+Use this workflow label when a question asks for any forecast. Run the pre-flight context tool before presenting probabilities, and block forecasting if the tournament field, feature table, or evidence index is not ready.
+""",
+    "citation-discipline": """---
+name: citation-discipline
+description: require citations for factual, source-policy, model-input, model-output, market, rolling-state, and uncertainty claims.
+---
+
+# Skill: citation-discipline
+
+Use this workflow label for every answer. Attach citation ids to claims, verify those claims against source support labels, and refuse instructions that ask for uncited or unsupported factual claims.
+""",
+    "source-adapter-governance": """---
+name: source-adapter-governance
+description: distinguish bundled demo files, refreshed adapters, disabled sources, and missing licensed feeds before source-aware answers.
+---
+
+# Skill: source-adapter-governance
+
+Use this workflow label when a question mentions sources, coverage, markets, adapters, odds, or refreshes. Disclose whether data is bundled, live, disabled, placeholder, manual, paid, or missing.
+""",
+    "monte-carlo-forecasting": """---
+name: monte-carlo-forecasting
+description: run and explain tournament simulations when users ask for Monte Carlo, champion probabilities, rolling forecasts, or post-result updates.
+---
+
+# Skill: monte-carlo-forecasting
+
+Use this workflow label for simulation, champion-probability, rolling-forecast, or post-result questions. Report simulation count, seed-sensitive tool output, bracket limitations, and uncertainty caveats.
+""",
+}
+
 
 def select_skills(question: str) -> list[str]:
     q = question.lower()
@@ -49,7 +88,11 @@ def select_skills(question: str) -> list[str]:
 @lru_cache(maxsize=None)
 def read_skill(name: str) -> str:
     path = SKILLS_ROOT / name / "SKILL.md"
-    return path.read_text(encoding="utf-8")
+    if path.exists():
+        return path.read_text(encoding="utf-8")
+    if name in INLINE_SKILL_CONTEXT:
+        return INLINE_SKILL_CONTEXT[name]
+    raise FileNotFoundError(f"Unknown skill or workflow label: {name}")
 
 
 def read_skill_metadata(name: str) -> dict[str, str]:

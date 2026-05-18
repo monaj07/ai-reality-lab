@@ -216,7 +216,7 @@ def run_grounded_mock(question: str) -> AgentAnswer:
             "The agent can use official tournament data, the FIFA/Coca-Cola rankings adapter, ClubElo-style player-pool proxies, Elo-style strength adapters, historical results adapters, injury/news adapters, bundled demo priors, curated evidence, API-Football/football-data.org adapter slots, and optional market baselines. "
             f"Market-implied probabilities are disabled by default ({disabled}) and must not be used as betting advice. Every external feed requires permitted access and licensing checks."
         )
-        claims.append(_claim("The source registry separates bundled sources, adapter placeholders, manual or paid feeds, reference-only sources, and disabled optional feeds.", cites, "source_policy"))
+        claims.append(_claim("The source registry separates bundled sources, adapter placeholders, manual or paid feeds, and disabled optional feeds.", cites, "source_policy"))
         claims.append(_claim("Market-implied probabilities are disabled by default and must not be used as betting advice.", cites, "source_policy"))
     elif "usa" in q and "australia" in q:
         res = tools.forecast_match("USA", "Australia"); tools_used.extend(["forecast_match", "get_team_inputs"])

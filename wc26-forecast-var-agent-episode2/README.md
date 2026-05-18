@@ -4,7 +4,9 @@
 
 Forecast VAR is a compact agent-engineering project for a football-themed GenAI episode. The agent predicts 2026 FIFA World Cup outcomes, but it is not allowed to behave like a vibes-based pundit. Before it produces probabilities, it must validate the tournament field, retrieve evidence, call deterministic forecast tools, attach claim-level citations, compare model output against available baselines, and pass a strict evaluation harness.
 
-This source-aware edition adds the best reusable ideas from the `sport_mystic_ai` reference repository while keeping Forecast VAR's own architecture clean and explainable:
+The name is a football pun. In football, VAR means Video Assistant Referee. In this project, Forecast VAR is the review booth for AI forecasts: it validates inputs, audits evidence, checks claims, and refuses unsupported certainty before a prediction is presented.
+
+This source-aware edition is designed as a stand-alone `ai-reality-lab` episode with a clean, explainable architecture:
 
 - source adapters,
 - local evidence index,
@@ -39,66 +41,72 @@ The episode arc is:
 ## Project layout
 
 ```text
-wc26-forecast-var-agent-episode2-source-aware/
+wc26-forecast-var-agent-episode2/
 ├── AGENTS.md
 ├── README.md
+├── pyproject.toml
+├── requirements.txt
 ├── docs/
-│   ├── source_adapters.md
+│   ├── monte_carlo_vs_llm.md
 │   ├── prediction_upgrade_notes.md
-│   └── monte_carlo_vs_llm.md
+│   ├── python_mcp_intro.md
+│   └── source_adapters.md
 ├── data/
-│   ├── facts/
-│   │   ├── world_cup_2026_groups.json
-│   │   └── source_cards.jsonl
-│   ├── sources/
-│   │   ├── sample_team_features.csv
-│   │   ├── sample_market_odds.csv
-│   │   ├── curated_evidence.jsonl
-│   │   ├── adapter_config.example.json
-│   │   └── source_registry.json
-│   ├── generated/
-│   │   └── evidence_index.jsonl
-│   ├── examples/
-│   │   └── rolling_results_group_d.json
+│   ├── backtest/
+│   │   └── historical_match_sample.csv
 │   ├── eval/
 │   │   └── episode2_eval_cases.jsonl
-│   └── backtest/
-│       └── historical_match_sample.csv
+│   ├── examples/
+│   │   └── rolling_results_group_d.json
+│   ├── facts/
+│   │   ├── source_cards.jsonl
+│   │   └── world_cup_2026_groups.json
+│   ├── generated/
+│   │   └── evidence_index.jsonl
+│   └── sources/
+│       ├── adapter_config.example.json
+│       ├── curated_evidence.jsonl
+│       ├── sample_market_odds.csv
+│       ├── sample_team_features.csv
+│       └── source_registry.json
 ├── .agents/skills/
-│   ├── forecast-preflight/
-│   ├── citation-discipline/
-│   ├── source-triage/
+│   ├── eval-review/
 │   ├── forecast-modeling/
 │   ├── scenario-analysis/
-│   ├── uncertainty-calibration/
-│   ├── source-adapter-governance/
-│   ├── monte-carlo-forecasting/
-│   └── eval-review/
-├── mcp_servers/worldcup_forecast/server.py
+│   ├── source-triage/
+│   └── uncertainty-calibration/
+├── mcp_servers/
+│   └── worldcup_forecast/
+│       └── server.py
 ├── src/forecast_var/
+│   ├── __init__.py
+│   ├── backtest.py
+│   ├── config.py
 │   ├── data.py
-│   ├── source_adapters.py
-│   ├── tournament_sim.py
-│   ├── tools.py
+│   ├── eval_harness.py
 │   ├── forecast_model.py
 │   ├── mock_agent.py
 │   ├── openai_agent.py
-│   ├── eval_harness.py
-│   ├── backtest.py
+│   ├── runner.py
+│   ├── schemas.py
 │   ├── skills.py
-│   └── schemas.py
+│   ├── source_adapters.py
+│   ├── tools.py
+│   └── tournament_sim.py
 ├── scripts/
+│   ├── backtest_model.py
+│   ├── evaluate.py
+│   ├── generate_figures.py
 │   ├── refresh_sources.py
 │   ├── run_agent.py
-│   ├── evaluate.py
 │   ├── validate_data.py
-│   ├── backtest_model.py
-│   └── generate_figures.py
+│   └── validate_skills.py
 ├── notebooks/
-│   ├── 02_forecast_var_prediction_agent.ipynb
-│   └── 02_forecast_var_prediction_agent.executed.ipynb
+│   ├── 02_forecast_var_prediction_agent.executed.ipynb
+│   └── 02_forecast_var_prediction_agent.ipynb
 ├── figures/
-└── reports/
+├── reports/
+└── tests/
 ```
 
 ---
@@ -106,7 +114,7 @@ wc26-forecast-var-agent-episode2-source-aware/
 ## Quick start
 
 ```bash
-cd wc26-forecast-var-agent-episode2-source-aware
+cd wc26-forecast-var-agent-episode2
 
 python -m venv .venv
 source .venv/bin/activate
@@ -135,7 +143,7 @@ PYTHONPATH=src pytest -q
 Expected result:
 
 ```text
-16 passed
+19 passed
 ```
 
 ---
@@ -264,7 +272,7 @@ Python Monte Carlo simulator
 = deterministic tournament forecasting engine exposed through MCP
 ```
 
-In live mode, `gpt-5.4-nano` reads the user question, selects relevant skills, retrieves source cards, runs the pre-flight gate, calls MCP forecast tools, and explains the result. It should **not** invent probabilities from intuition. The probability numbers come from deterministic Python tools such as `forecast_match_with_context`, `forecast_group`, and `simulate_tournament`.
+In live mode, `gpt-5.4-nano` reads the user question, selects relevant skills, retrieves source cards, runs the pre-flight gate, calls MCP forecast tools, and explains the result. It should **not** invent probabilities from intuition. The probability numbers come from Python tools such as `forecast_match_with_context`, `forecast_group`, and `simulate_tournament`.
 
 A Monte Carlo simulation means: run the tournament many times using probabilistic match outcomes, then count how often each team reaches each stage. Instead of saying “Brazil are stronger, so Brazil definitely win,” the simulator repeatedly samples realistic-but-random tournament paths. After thousands of runs, we get a distribution such as champion probability, finalist probability, and semifinal probability.
 
@@ -293,7 +301,7 @@ MCP = the controlled phone line between them
 Evaluation harness = the fact-checking desk
 ```
 
-This design is important for agent engineering. If the language model freehands probabilities, the answer may sound confident but cannot be audited. If the model calls a deterministic simulator, we can reproduce the result, inspect the assumptions, compare it to source coverage, and evaluate whether the final answer overstated the forecast.
+This design is important for agent engineering. If the language model freehands probabilities, the answer may sound confident but cannot be audited. If the model calls a tool, the numeric forecast can be reproduced when the code, bundled inputs, parameters, and simulator seed are the same. The live LLM API response is still not promised to be bit-for-bit deterministic, even with low temperature or seed controls. What becomes reproducible is the forecasting procedure and tool output; what becomes auditable is the LLM's tool trace, citations, structured claims, and final explanation.
 
 For a standalone version of this explanation, see `docs/monte_carlo_vs_llm.md`.
 
@@ -312,7 +320,7 @@ data/generated/evidence_index.jsonl
   ↓
 MCP tools: search_evidence_index, source_coverage_report, forecast_match_with_context
   ↓
-Agent skills: source-adapter-governance, forecast-modeling, uncertainty-calibration
+Agent skills: source-triage, forecast-modeling, uncertainty-calibration
   ↓
 Typed claims + citations
   ↓
@@ -330,6 +338,12 @@ MarketOddsAdapter       -> sample de-vig market comparison
 CuratedEvidenceAdapter  -> human-reviewed notes and policies
 APIFootballAdapter      -> optional live API-Football skeleton
 ```
+
+### What does de-vig mean here?
+
+Market odds include bookmaker margin, often called vig or overround. To de-vig the sample 1X2 odds, Forecast VAR converts each decimal odd into a raw implied probability with `1 / odds`, then normalizes the three outcomes so win/draw/win probabilities sum to 1. That gives a market-implied comparison baseline without treating the odds as betting advice.
+
+Forecast VAR uses de-vig probabilities only to ask, "Is the demo model far away from this sample external baseline?" It does not use them to recommend wagers, claim live market consensus, or present the sample rows as licensed odds.
 
 ### Why keep live sources off by default?
 
@@ -380,28 +394,26 @@ Example:
 
 ```markdown
 ---
-name: monte-carlo-forecasting
-description: run and explain tournament simulations through deterministic tools. use when a question asks for monte carlo simulations, champion probabilities, rolling forecasts, bracket paths, or post-result updates.
+name: forecast-modeling
+description: use the forecasting tools instead of free-form guessing when the user asks for match, group, ranking, market, or tournament probabilities.
 ---
 
-# monte-carlo-forecasting
+# Skill: forecast-modeling
 
-Use this skill when a question asks for tournament simulation, champion probabilities, rolling forecasts, or changes after completed results.
+Use this skill when a question asks who is favourite, who will win, match probabilities, group probabilities, or tournament rankings.
 ```
 
-Implemented skills:
+Current on-disk skill cards:
 
 ```text
-forecast-preflight
-citation-discipline
-source-triage
+eval-review
 forecast-modeling
 scenario-analysis
+source-triage
 uncertainty-calibration
-source-adapter-governance
-monte-carlo-forecasting
-eval-review
 ```
+
+The router also uses a few built-in workflow labels for pre-flight, citation discipline, source-adapter governance, and Monte Carlo forecasting. Those are handled in `src/forecast_var/skills.py` instead of being separate skill folders.
 
 Validate the skill metadata with:
 
@@ -411,9 +423,9 @@ PYTHONPATH=src python scripts/validate_skills.py
 
 Skills are procedural instructions, not data sources. For example:
 
-- `source-adapter-governance` tells the agent to distinguish bundled data from live/refreshed sources.
-- `monte-carlo-forecasting` tells the agent to disclose simulation limitations and locked results.
-- `citation-discipline` tells the agent to cite every factual, model-derived, market, rolling, and uncertainty claim.
+- `source-triage` tells the agent to distinguish bundled data from live/refreshed sources.
+- `forecast-modeling` tells the agent to use tools for probabilities instead of free-form guessing.
+- `uncertainty-calibration` tells the agent to avoid certainty claims and betting language.
 
 ---
 
@@ -529,25 +541,6 @@ figures/group_d_winner_probabilities.png
 figures/top_tournament_favourites.png
 figures/eval_summary.png
 ```
-
----
-
-## What was borrowed from `sport_mystic_ai`?
-
-Only architectural ideas:
-
-```text
-source adapters
-evidence index
-rolling forecast mode
-Brier/log-loss scoring
-market-baseline roadmap
-whole-tournament forecast structure
-```
-
-No source code was copied. The Forecast VAR implementation remains OpenAI Agents SDK + MCP + skills + local evaluation harness.
-
----
 
 ## Safety and accuracy limits
 
