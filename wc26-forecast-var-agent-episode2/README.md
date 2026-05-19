@@ -274,6 +274,28 @@ Python Monte Carlo simulator
 
 In live mode, `gpt-5.4-nano` reads the user question, selects relevant skills, retrieves source cards, runs the pre-flight gate, calls MCP forecast tools, and explains the result. It should **not** invent probabilities from intuition. The probability numbers come from Python tools such as `forecast_match_with_context`, `forecast_group`, and `simulate_tournament`.
 
+The clean split is:
+
+```text
+The LLM chooses the workflow and tool calls.
+The tools perform the concrete data access and forecasting computation.
+The LLM narrates the result with citations, caveats, and uncertainty labels.
+```
+
+For the live path, that means:
+
+```text
+1. User asks a forecasting question.
+2. LLM decides which source, pre-flight, evidence, or forecast tools are relevant.
+3. MCP tools execute deterministic Python code.
+4. Python loads bundled data, source registry entries, evidence documents, team priors, or sample market rows.
+5. Python forecasting tools compute probabilities or seeded simulation outputs.
+6. LLM receives structured tool results.
+7. LLM writes the answer, but should not invent or alter the probability numbers.
+```
+
+The LLM does not directly fetch from project sources in this codebase. It calls tools such as `search_source_cards`, `source_coverage_report`, `forecast_match_with_context`, `forecast_group`, and `simulate_tournament`; those tools decide exactly how to read local files or opt-in adapters. The forecast probabilities are therefore produced without LLM math.
+
 A Monte Carlo simulation means: run the tournament many times using probabilistic match outcomes, then count how often each team reaches each stage. Instead of saying “Brazil are stronger, so Brazil definitely win,” the simulator repeatedly samples realistic-but-random tournament paths. After thousands of runs, we get a distribution such as champion probability, finalist probability, and semifinal probability.
 
 ```text
@@ -338,6 +360,36 @@ MarketOddsAdapter       -> sample de-vig market comparison
 CuratedEvidenceAdapter  -> human-reviewed notes and policies
 APIFootballAdapter      -> optional live API-Football skeleton
 ```
+
+### Source governance
+
+Source governance is the part of Forecast VAR that answers: "What sources exist, what can they support, are they bundled or live, and what are the licensing or safety limits?"
+
+Two local files carry different parts of that contract:
+
+```text
+data/sources/source_registry.json
+= source inventory and governance metadata
+= source id, category, status, available fields, license notes
+
+data/facts/source_cards.jsonl
+= compact citation and support cards
+= source id, title, URL, claim summary, supports labels
+```
+
+`source_registry.json` is the catalog. It tells the agent whether a source is bundled, refreshable, a placeholder, disabled by default, manual, paid, or subject to licensing checks. `source_cards.jsonl` is the citation layer. It tells the claim verifier what a cited source can support, such as `tournament_field`, `model_input`, `market_baseline`, `source_policy`, or `uncertainty`.
+
+The folder split follows the same idea:
+
+```text
+data/sources/
+= source-side inputs, sample priors, sample odds, curated source material, adapter config, and source registry
+
+data/facts/
+= curated forecast-facing facts and citation cards used directly for validation and grounding
+```
+
+So `data/sources/` is closer to "where the data comes from and how it may be used"; `data/facts/` is closer to "what compact facts or source cards the agent can cite."
 
 ### What does de-vig mean here?
 
@@ -429,6 +481,26 @@ Skills are procedural instructions, not data sources. For example:
 
 ---
 
+## Mock agents
+
+`src/forecast_var/mock_agent.py` contains deterministic offline agents used for demos, notebooks, and evals.
+
+```text
+run_baseline_mock
+= intentionally weak agent
+= no tools, no skills, no citations, overconfident unsupported answers
+
+run_grounded_mock
+= scripted source-aware agent
+= selects workflow labels, retrieves source cards, runs pre-flight, calls forecast tools, creates typed claims, attaches citations, verifies claim support
+```
+
+The baseline mock exists so the evaluation harness has a bad comparator. It makes plausible-sounding but unsafe claims such as certainty about future results or uncited source claims. The grounded mock exists to show the desired behavior without requiring a live model call. It is keyword-driven and tailored to the project eval cases, so it is not meant to be a general chatbot; it is a reproducible teaching harness for the source-aware workflow.
+
+In the live path, the OpenAI agent replaces the keyword routing with model reasoning, but the same design rule remains: the LLM routes and explains; deterministic tools produce the probability numbers and source-aware evidence outputs.
+
+---
+
 ## RAG / evidence index
 
 The project uses lightweight local RAG rather than a vector database.
@@ -457,6 +529,37 @@ Each evidence document has:
 ```
 
 The claim verifier uses `supports` labels to check whether a cited source can support a claim.
+
+### Factual and model grounding
+
+Forecast VAR grounds answers at the claim level. An answer is split into typed `ForecastClaim` records, each with citation ids. `verify_claims_against_sources` then checks whether those citation ids map to real source cards and whether the cards have `supports` labels appropriate for the claim type.
+
+Factual grounding covers claims such as:
+
+```text
+field_fact
+guardrail
+source_policy
+model_input
+source_coverage
+market_baseline
+rolling_state
+```
+
+These claims should cite source cards that support the underlying fact, policy, input, coverage statement, market baseline, or completed-result state.
+
+Model grounding covers claims such as:
+
+```text
+model_output
+scenario_assumption
+simulation_output
+uncertainty
+```
+
+These claims should cite the model card, sample priors, simulation source, scenario assumptions, or uncertainty-supporting evidence. A model-derived claim is grounded when the answer makes clear that the number came from Forecast VAR's Python model or simulator, not from the LLM's intuition.
+
+The verifier is deliberately lightweight. It does not fully parse natural language and prove every sentence semantically true. Instead, it enforces citation discipline: real citation ids must be attached, and cited source cards must carry support labels that match the claim type.
 
 ---
 

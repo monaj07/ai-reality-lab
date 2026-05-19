@@ -28,7 +28,7 @@ def _match_outcome(team_a: str, team_b: str, rng: random.Random) -> tuple[int, i
     r = rng.random()
     if r < probs["p_team_a_win"]:
         return 1, 0, team_a
-    if r < probs["p_team_a_win"] + probs["p_draw"]:
+    if r < (probs["p_team_a_win"] + probs["p_draw"]):
         return 1, 1, None
     return 0, 1, team_b
 
