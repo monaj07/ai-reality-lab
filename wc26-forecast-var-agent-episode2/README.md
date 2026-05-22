@@ -89,6 +89,7 @@ wc26-forecast-var-agent-episode2/
 │   ├── openai_agent.py
 │   ├── runner.py
 │   ├── schemas.py
+│   ├── scorelines.py
 │   ├── skills.py
 │   ├── source_adapters.py
 │   ├── tools.py
@@ -143,7 +144,7 @@ PYTHONPATH=src pytest -q
 Expected result:
 
 ```text
-19 passed
+21 passed
 ```
 
 ---
@@ -214,7 +215,27 @@ What this demonstrates:
 - no betting advice,
 - data gaps.
 
-### 5. Whole-tournament Monte Carlo
+### 5. Match probabilities plus scoreline scenario
+
+```bash
+PYTHONPATH=src python - <<'PY'
+from forecast_var.tools import forecast_match
+
+forecast = forecast_match("France", "Iraq")
+print(forecast["probabilities"])
+print(forecast["scoreline_projection"]["scenario_scoreline"])
+print(forecast["scoreline_projection"]["top_scorelines"])
+PY
+```
+
+What this demonstrates:
+
+- 1X2 probabilities still come from the deterministic model,
+- exact-score candidates are calibrated to those probabilities,
+- the displayed scenario scoreline is seeded and reproducible,
+- the scenario scoreline is not a certainty or betting signal.
+
+### 6. Whole-tournament Monte Carlo
 
 ```bash
 PYTHONPATH=src python scripts/run_agent.py \
@@ -229,7 +250,7 @@ What this demonstrates:
 - bracket approximation warning,
 - simulation-output claim type.
 
-### 6. Rolling forecast after a completed-result state
+### 7. Rolling forecast after a completed-result state
 
 ```bash
 PYTHONPATH=src python scripts/run_agent.py \
@@ -244,7 +265,7 @@ What this demonstrates:
 - rolling-state claims are cited,
 - the agent explains what is still uncertain.
 
-### 7. OpenAI API live path
+### 8. OpenAI API live path
 
 ```bash
 export OPENAI_API_KEY="your_key_here"
@@ -297,6 +318,10 @@ For the live path, that means:
 The LLM does not directly fetch from project sources in this codebase. It calls tools such as `search_source_cards`, `source_coverage_report`, `forecast_match_with_context`, `forecast_group`, and `simulate_tournament`; those tools decide exactly how to read local files or opt-in adapters. The forecast probabilities are therefore produced without LLM math.
 
 A Monte Carlo simulation means: run the tournament many times using probabilistic match outcomes, then count how often each team reaches each stage. Instead of saying “Brazil are stronger, so Brazil definitely win,” the simulator repeatedly samples realistic-but-random tournament paths. After thousands of runs, we get a distribution such as champion probability, finalist probability, and semifinal probability.
+
+Forecast VAR also has a small scoreline realism layer. The match model first computes 1X2 probabilities, then `scorelines.py` maps those probabilities and team ratings onto an exact-score grid from 0-0 through 9-9. The grid is calibrated so the total mass for home/team-a win, draw, and away/team-b win still matches the deterministic 1X2 model. A seeded scenario scoreline is then sampled from that grid. This means examples can include draws, 0-0s, 4-3s, 5-0s, and rare high-scoring tails while keeping the probability engine auditable.
+
+Important caveat: the scoreline scenario is not "the predicted exact result." It is one reproducible scenario draw from a calibrated distribution. For serious forecasting, inspect the full 1X2 probabilities, top scoreline candidates, expected goals, source coverage, and data gaps together.
 
 ```text
 User question
@@ -660,4 +685,4 @@ licensed live injury/lineup feeds
 production-grade market modelling
 ```
 
-Before public or serious forecasting, replace demo priors with timestamped, licensed, and validated sources; rerun source coverage; rerun evaluation; and check calibration.
+Before public or serious forecasting, replace demo priors with timestamped, licensed, and validated sources; rerun source coverage; rerun evaluation; and check calibration. Treat exact scores as scenario samples, not final claims.

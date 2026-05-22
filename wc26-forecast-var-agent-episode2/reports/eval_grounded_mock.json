@@ -1647,7 +1647,7 @@
         "uncertainty-calibration",
         "monte-carlo-forecasting"
       ],
-      "answer": "The Monte Carlo demo ran 500 simulations. Top champion probabilities are Argentina 21.0%, France 14.2%, Spain 14.0%, England 12.0%, Portugal 8.4%. The simulator approximates a seeded 32-team knockout and should be treated as an educational model, not a certainty.",
+      "answer": "The Monte Carlo demo ran 500 simulations. Top champion probabilities are Argentina 19.2%, France 15.6%, Spain 13.4%, England 9.4%, Portugal 8.4%. The simulator approximates a seeded 32-team knockout and should be treated as an educational model, not a certainty.",
       "claim_verification": {
         "claims": [
           {
@@ -1759,7 +1759,7 @@
         "scenario-analysis",
         "monte-carlo-forecasting"
       ],
-      "answer": "Rolling Group D forecast after locking the illustrative result USA 2-1 Australia: USA is the group-winner favourite at 68.4%. Completed results are user-supplied demo state, while remaining fixtures still use demo priors.",
+      "answer": "Rolling Group D forecast after locking the illustrative result USA 2-1 Australia: USA is the group-winner favourite at 60.6%. Completed results are user-supplied demo state, while remaining fixtures still use demo priors.",
       "claim_verification": {
         "claims": [
           {
@@ -1802,7 +1802,7 @@
             "reason": "At least one cited source has support labels required for this claim type."
           },
           {
-            "claim": "USA is the rolling Group D winner favourite at 68.4% in the demo simulation.",
+            "claim": "USA is the rolling Group D winner favourite at 60.6% in the demo simulation.",
             "claim_type": "simulation_output",
             "citation_ids": [
               "CITE-SRC-FIFA-WC26",

@@ -16,21 +16,32 @@ from typing import Any
 
 from .data import all_teams, load_groups, load_team_features, normalize_team
 from .forecast_model import _adjusted_rating, match_probabilities
+from .scorelines import sample_scoreline_for_outcome
 
 
 def _match_outcome(team_a: str, team_b: str, rng: random.Random) -> tuple[int, int, str | None]:
-    """Sample a group-stage result category.
-
-    Scores are simplified because the project focuses on agent engineering and
-    source governance, not a full expected-goals scoreline model.
-    """
+    """Sample a group-stage result category and plausible scoreline."""
     probs = match_probabilities(team_a, team_b)
     r = rng.random()
     if r < probs["p_team_a_win"]:
-        return 1, 0, team_a
-    if r < (probs["p_team_a_win"] + probs["p_draw"]):
-        return 1, 1, None
-    return 0, 1, team_b
+        outcome = "team_a"
+        winner = team_a
+    elif r < (probs["p_team_a_win"] + probs["p_draw"]):
+        outcome = "draw"
+        winner = None
+    else:
+        outcome = "team_b"
+        winner = team_b
+    scoreline = sample_scoreline_for_outcome(
+        p_team_a_win=probs["p_team_a_win"],
+        p_draw=probs["p_draw"],
+        p_team_b_win=probs["p_team_b_win"],
+        rating_a=float(probs["rating_a_used"]),
+        rating_b=float(probs["rating_b_used"]),
+        outcome=outcome,
+        selector=rng.random(),
+    )
+    return scoreline.team_a_goals, scoreline.team_b_goals, winner
 
 
 def _knockout_winner(team_a: str, team_b: str, rng: random.Random) -> str:
@@ -41,27 +52,48 @@ def _knockout_winner(team_a: str, team_b: str, rng: random.Random) -> str:
     return team_a if rng.random() < p_a else team_b
 
 
-def _initial_points(group: str, locked_results: list[dict[str, Any]] | None) -> tuple[dict[str, int], set[tuple[str, str]]]:
+def _blank_table(teams: list[str]) -> dict[str, dict[str, int]]:
+    return {
+        team: {"points": 0, "goals_for": 0, "goals_against": 0}
+        for team in teams
+    }
+
+
+def _apply_score(table: dict[str, dict[str, int]], team_a: str, team_b: str, team_a_goals: int, team_b_goals: int) -> None:
+    table[team_a]["goals_for"] += team_a_goals
+    table[team_a]["goals_against"] += team_b_goals
+    table[team_b]["goals_for"] += team_b_goals
+    table[team_b]["goals_against"] += team_a_goals
+    if team_a_goals > team_b_goals:
+        table[team_a]["points"] += 3
+    elif team_b_goals > team_a_goals:
+        table[team_b]["points"] += 3
+    else:
+        table[team_a]["points"] += 1
+        table[team_b]["points"] += 1
+
+
+def _table_sort_key(team: str, table: dict[str, dict[str, int]], ratings: dict[str, float]) -> tuple[int, int, int, float]:
+    row = table[team]
+    goal_difference = row["goals_for"] - row["goals_against"]
+    return (row["points"], goal_difference, row["goals_for"], ratings[team])
+
+
+def _initial_table(group: str, locked_results: list[dict[str, Any]] | None) -> tuple[dict[str, dict[str, int]], set[tuple[str, str]]]:
     teams = load_groups()[group]
-    points = {team: 0 for team in teams}
+    table = _blank_table(teams)
     played: set[tuple[str, str]] = set()
     for result in locked_results or []:
         a = normalize_team(result["team_a"])
         b = normalize_team(result["team_b"])
-        if a not in points or b not in points:
+        if a not in table or b not in table:
             continue
         key = tuple(sorted((a, b)))
         played.add(key)
         ga = int(result["team_a_goals"])
         gb = int(result["team_b_goals"])
-        if ga > gb:
-            points[a] += 3
-        elif ga < gb:
-            points[b] += 3
-        else:
-            points[a] += 1
-            points[b] += 1
-    return points, played
+        _apply_score(table, a, b, ga, gb)
+    return table, played
 
 
 def simulate_group_with_locked_results(
@@ -76,19 +108,15 @@ def simulate_group_with_locked_results(
     group = group.upper()
     teams = load_groups()[group]
     counts = {t: {"winner": 0, "top2": 0, "top3": 0} for t in teams}
-    base_points, played = _initial_points(group, locked_results)
+    base_table, played = _initial_table(group, locked_results)
     remaining = [m for m in itertools.combinations(teams, 2) if tuple(sorted(m)) not in played]
     ratings = {team: _adjusted_rating(team) for team in teams}
     for _ in range(sims):
-        points = dict(base_points)
+        table = {team: dict(row) for team, row in base_table.items()}
         for a, b in remaining:
-            ga, gb, winner = _match_outcome(a, b, rng)
-            if winner is None:
-                points[a] += 1
-                points[b] += 1
-            else:
-                points[winner] += 3
-        ordered = sorted(teams, key=lambda t: (points[t], ratings[t]), reverse=True)
+            ga, gb, _winner = _match_outcome(a, b, rng)
+            _apply_score(table, a, b, ga, gb)
+        ordered = sorted(teams, key=lambda t: _table_sort_key(t, table, ratings), reverse=True)
         counts[ordered[0]]["winner"] += 1
         for team in ordered[:2]:
             counts[team]["top2"] += 1
@@ -119,30 +147,29 @@ def simulate_tournament(
     ratings = {team: _adjusted_rating(team) for team in teams}
 
     for _ in range(sims):
-        qualifiers: list[tuple[str, int, float]] = []
-        third_place: list[tuple[str, int, float]] = []
+        qualifiers: list[tuple[str, int, int, int, float]] = []
+        third_place: list[tuple[str, int, int, int, float]] = []
         for group, group_teams in groups.items():
-            points, played = _initial_points(group, locked_results)
+            table, played = _initial_table(group, locked_results)
             for a, b in itertools.combinations(group_teams, 2):
                 if tuple(sorted((a, b))) in played:
                     continue
-                ga, gb, winner = _match_outcome(a, b, rng)
-                if winner is None:
-                    points[a] += 1
-                    points[b] += 1
-                else:
-                    points[winner] += 3
-            ordered = sorted(group_teams, key=lambda t: (points[t], ratings[t]), reverse=True)
+                ga, gb, _winner = _match_outcome(a, b, rng)
+                _apply_score(table, a, b, ga, gb)
+            ordered = sorted(group_teams, key=lambda t: _table_sort_key(t, table, ratings), reverse=True)
             counts[ordered[0]]["group_winner"] += 1
             for team in ordered[:2]:
                 counts[team]["round32"] += 1
-                qualifiers.append((team, points[team], ratings[team]))
-            third_place.append((ordered[2], points[ordered[2]], ratings[ordered[2]]))
-        best_thirds = sorted(third_place, key=lambda x: (x[1], x[2]), reverse=True)[:8]
-        for team, pts, rating in best_thirds:
+                key = _table_sort_key(team, table, ratings)
+                qualifiers.append((team, key[0], key[1], key[2], key[3]))
+            team = ordered[2]
+            key = _table_sort_key(team, table, ratings)
+            third_place.append((team, key[0], key[1], key[2], key[3]))
+        best_thirds = sorted(third_place, key=lambda x: (x[1], x[2], x[3], x[4]), reverse=True)[:8]
+        for team, pts, gd, gf, rating in best_thirds:
             counts[team]["round32"] += 1
-            qualifiers.append((team, pts, rating))
-        bracket = [team for team, _, _ in sorted(qualifiers, key=lambda x: (x[1], x[2]), reverse=True)]
+            qualifiers.append((team, pts, gd, gf, rating))
+        bracket = [team for team, _, _, _, _ in sorted(qualifiers, key=lambda x: (x[1], x[2], x[3], x[4]), reverse=True)]
         # Pair strongest remaining seed with weakest remaining seed each round.
         stage_names = ["round16", "quarterfinal", "semifinal", "final", "champion"]
         for stage in stage_names:

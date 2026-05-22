@@ -18,7 +18,13 @@ from .data import (
     source_support_labels,
     team_group,
 )
-from .forecast_model import MODEL_SOURCE_ID, match_probabilities, simulate_group, tournament_favourites
+from .forecast_model import (
+    MODEL_SOURCE_ID,
+    match_probabilities,
+    match_scoreline_projection,
+    simulate_group,
+    tournament_favourites,
+)
 from .source_adapters import build_evidence_index, load_evidence_index
 from .tournament_sim import simulate_tournament as _simulate_tournament, simulate_group_with_locked_results, source_feature_coverage
 
@@ -146,14 +152,20 @@ def forecast_match(team_a: str, team_b: str, adjustments: dict[str, float] | Non
     a = normalize_team(team_a); b = normalize_team(team_b)
     scenario = _scenario_from_adjustments(adjustments)
     probs = match_probabilities(a, b, scenario)
+    scorelines = match_scoreline_projection(a, b, scenario)
     fa = load_team_features()[a]; fb = load_team_features()[b]
     return {
         "type": "match_forecast",
         "teams": [a, b],
         "probabilities": probs,
+        "scoreline_projection": scorelines,
         "inputs": {a: fa, b: fb},
         "scenario_adjustments": scenario or {},
-        "warnings": ["Demo probabilities are model outputs, not certainties.", "Refresh live rankings, squads, injuries, and market sources before public use."],
+        "warnings": [
+            "Demo probabilities are model outputs, not certainties.",
+            "Scenario scoreline is a seeded sample from a calibrated exact-score distribution, not a certainty.",
+            "Refresh live rankings, squads, injuries, and market sources before public use.",
+        ],
         "citations": [citation("SRC-SAMPLE-TEAM-PRIORS"), citation(MODEL_SOURCE_ID), citation("SRC-FIFA-WC26")],
     }
 
@@ -170,7 +182,14 @@ def forecast_group(group: str, sims: int = 5000, adjustments: dict[str, float] |
         "teams": teams,
         "simulation_count": sims,
         "group_probabilities": sim,
-        "matchups": [{"teams": m["teams"], "probabilities": m["probabilities"]} for m in matchups],
+        "matchups": [
+            {
+                "teams": m["teams"],
+                "probabilities": m["probabilities"],
+                "scoreline_scenario": m["scoreline_projection"]["scenario_scoreline"],
+            }
+            for m in matchups
+        ],
         "scenario_adjustments": scenario or {},
         "warnings": ["Top-two and group-winner probabilities are simulated from demo priors only.", "Third-place advancement requires cross-group simulation and is not guaranteed by top3 probability."],
         "citations": [citation("SRC-FIFA-WC26"), citation("SRC-SAMPLE-TEAM-PRIORS"), citation(MODEL_SOURCE_ID)],
@@ -193,10 +212,15 @@ def rank_teams(limit: int = 10, adjustments: dict[str, float] | None = None) -> 
 def explain_model() -> dict[str, Any]:
     return {
         "model": "Forecast VAR V1 demo model",
-        "match_model": "Bradley-Terry style non-draw split plus bounded draw probability.",
+        "match_model": "Bradley-Terry style non-draw split plus bounded draw probability, followed by an exact-score layer calibrated to those 1X2 probabilities.",
         "group_model": "Monte Carlo group simulation over six round-robin matches with rating tie-break proxy.",
         "title_proxy": "Softmax over adjusted team ratings; not a full bracket model.",
-        "limitations": ["Bundled priors are illustrative.", "No live injury, squad, weather, odds, or lineup data is included by default.", "Model outputs are probabilities, not certainties."],
+        "limitations": [
+            "Bundled priors are illustrative.",
+            "Scenario scorelines are reproducible samples, not claims of certainty.",
+            "No live injury, squad, weather, odds, or lineup data is included by default.",
+            "Model outputs are probabilities, not certainties.",
+        ],
         "citations": [citation(MODEL_SOURCE_ID), citation("SRC-SAMPLE-TEAM-PRIORS")],
     }
 

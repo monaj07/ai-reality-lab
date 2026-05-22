@@ -6,6 +6,11 @@ import random
 from typing import Any
 
 from .data import load_team_features, normalize_team
+from .scorelines import (
+    expected_goals_from_ratings,
+    scenario_scoreline_from_ratings,
+    scoreline_distribution_from_ratings,
+)
 
 MODEL_SOURCE_ID = "MODEL-FORECAST-VAR-V1"
 
@@ -43,6 +48,54 @@ def match_probabilities(team_a: str, team_b: str, scenario: dict[str, float] | N
         "p_team_b_win": round(p_b, 4),
         "rating_a_used": round(_adjusted_rating(a, scenario), 1),
         "rating_b_used": round(_adjusted_rating(b, scenario), 1),
+    }
+
+
+def match_scoreline_projection(
+    team_a: str,
+    team_b: str,
+    scenario: dict[str, float] | None = None,
+    seed_key: str | None = None,
+) -> dict[str, Any]:
+    """Return exact-score context for a match forecast.
+
+    The scoreline layer is derived from the deterministic 1X2 model. It should
+    be read as a reproducible scenario sample plus a ranked scoreline grid, not
+    as a claim that one exact result is certain.
+    """
+    a = normalize_team(team_a)
+    b = normalize_team(team_b)
+    probs = match_probabilities(a, b, scenario)
+    rating_a = float(probs["rating_a_used"])
+    rating_b = float(probs["rating_b_used"])
+    xg_a, xg_b = expected_goals_from_ratings(rating_a, rating_b)
+    seed = seed_key or f"{a}|{b}|{rating_a}|{rating_b}|forecast-var-v1"
+    scenario_scoreline = scenario_scoreline_from_ratings(
+        p_team_a_win=probs["p_team_a_win"],
+        p_draw=probs["p_draw"],
+        p_team_b_win=probs["p_team_b_win"],
+        rating_a=rating_a,
+        rating_b=rating_b,
+        seed_key=seed,
+    )
+    top_scorelines = scoreline_distribution_from_ratings(
+        p_team_a_win=probs["p_team_a_win"],
+        p_draw=probs["p_draw"],
+        p_team_b_win=probs["p_team_b_win"],
+        rating_a=rating_a,
+        rating_b=rating_b,
+        limit=5,
+    )
+    return {
+        "scenario_scoreline": scenario_scoreline.as_dict(),
+        "top_scorelines": [scoreline.as_dict() for scoreline in top_scorelines],
+        "expected_goals": {
+            "team_a": round(xg_a, 2),
+            "team_b": round(xg_b, 2),
+            "total": round(xg_a + xg_b, 2),
+        },
+        "seed_key": seed,
+        "note": "Scenario scoreline is a reproducible sample from the exact-score distribution, not a certainty.",
     }
 
 
